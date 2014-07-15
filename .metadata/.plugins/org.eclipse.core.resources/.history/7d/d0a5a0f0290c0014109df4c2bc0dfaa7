@@ -85,10 +85,6 @@ public class Sadari {
 	int sadariTagi(int start){
 		int c = 0;
 		int r=start-1;
-		if (r>=sadari[0].length || r<0){
-			System.out.println("없는 번호를 골랐습니다.");
-			return 0;
-		}
 		int type = sadari[c][r];
 		printPath(c,r);
 		while(c+1 < sadari.length){
