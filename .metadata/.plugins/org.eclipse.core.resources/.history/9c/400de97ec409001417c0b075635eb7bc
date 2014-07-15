@@ -1,0 +1,15 @@
+import junit.framework.TestCase;
+
+
+public class CalculratorTest extends TestCase {
+
+	public void testAdd() {
+		
+		Calculrator cal = new Calculrator();
+		int res = cal.add(2,1);
+		assertEquals(2,res);
+		
+		
+	}
+
+}

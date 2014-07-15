@@ -1,0 +1,30 @@
+import java.util.Scanner;
+
+public class Calculrator {
+
+	public static void main(String[] args){
+
+
+		String value;
+		Scanner scan = new Scanner(System.in);
+
+
+		int res=0;
+		while(true){
+		value = scan.nextLine();
+		
+		String[] splitval = value.split(",");
+		
+
+		for (String s : splitval){
+			try{
+			res+=Integer.parseInt(s);}
+			catch(Exception e){}
+		}
+		
+		System.out.println("=>"+res);
+		}
+
+	}
+	
+}

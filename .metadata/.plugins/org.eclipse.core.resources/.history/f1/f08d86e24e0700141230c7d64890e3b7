@@ -1,0 +1,23 @@
+package strcal;
+
+public class strcal {
+	
+	int add(String x){
+		int res=0;
+		String[] tmp = x.split(",|\n");
+		for (String s:tmp){
+			try{
+			res+=Integer.parseInt(s);}
+			catch(Exception e){			
+			}
+		}
+		return res;
+	}
+	
+	public static void main(String[] args) {
+		
+		
+		
+	}
+
+}

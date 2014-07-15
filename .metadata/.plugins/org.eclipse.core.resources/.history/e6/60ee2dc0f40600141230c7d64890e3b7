@@ -1,0 +1,24 @@
+
+public class String {
+	int add(String x){
+		
+		int res = 0;
+		
+		String[] split = x.split(",");
+		
+
+		for (String s : split){
+			try{
+			res+=Integer.parseInt(s);}
+			catch(Exception e){}
+		}
+		return res;
+		
+		
+	}
+
+//	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+//
+}

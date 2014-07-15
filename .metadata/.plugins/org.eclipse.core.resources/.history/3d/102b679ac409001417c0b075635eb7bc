@@ -1,0 +1,21 @@
+import junit.framework.TestCase;
+
+
+public class CalculratorTest extends TestCase {
+
+	public void testAdd() {
+		
+		Calculrator cal = new Calculrator();
+		int res = cal.add(2,1);
+		assertEquals(2,res);
+
+	}
+	
+	public void testMinus() throws Exception {
+		Calculrator cal = new Calculrator();
+		int res = cal.minus(2,1);
+		assertEquals(1,res);
+		
+	}
+
+}

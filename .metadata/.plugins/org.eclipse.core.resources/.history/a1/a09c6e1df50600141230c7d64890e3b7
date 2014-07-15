@@ -1,0 +1,24 @@
+import java.util.Scanner;
+
+public class Calculrator {
+	
+	public static void main(String[] args){
+		java.lang.String value;
+		Scanner scan = new Scanner(System.in);
+		while(true){
+
+		value = scan.nextLine();
+		
+		String[] splitval = value.split(",|\n");
+				
+		int res=0;
+		for (String s : splitval){
+			res+=Integer.parseInt(s);
+		}
+		
+		System.out.println(res);
+
+		}
+	}
+	
+}

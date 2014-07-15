@@ -1,0 +1,124 @@
+import java.util.Scanner;
+import java.util.Random;
+
+public class Sadari {
+	
+
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		int x;
+		int y;
+		int start;
+		
+		/*
+		
+		Sadari s = new Sadari(10,6);
+		
+		s.addLn(1,1);
+		s.addLn(6,1);
+		s.addLn(9,1);
+		s.addLn(3,2);
+		s.addLn(5,2);
+		s.addLn(4,3);
+		s.addLn(7,3);
+		s.addLn(10,3);
+		s.addLn(2,4);
+		s.addLn(6,4);
+		s.addLn(8,4);
+		s.addLn(3,5);
+		s.addLn(5,5);
+		s.addLn(7,5);
+		s.printSadari();*/
+		
+		System.out.print("몇명인가요? ");
+		x = scan.nextInt();
+		System.out.print("몇줄로 할까요? ");
+		y = scan.nextInt();
+		Sadari s = new Sadari(y,x);
+		
+		s.randomLn();
+		s.printSadari();
+		
+		System.out.print("Start? ");
+		
+		
+		
+		
+		start = scan.nextInt();
+		System.out.println("Start: "+start + ", Exit:"+s.sadariTagi(start));
+		
+		scan.close();
+		
+		}
+	
+	int[][] sadari;
+	int pointc;
+	int pointr;
+	Random r = new Random();
+	
+	Sadari(int c, int r){
+		sadari = new int [c+1][r];
+		pointc = 0;
+	}
+
+	void addLn(int c, int r){
+		c--;
+		r--;
+		if (sadari[c][r]==0 && sadari[0].length > r-1){
+			sadari[c][r]=1;
+			sadari[c][r+1]=-1;
+			}
+		}
+	
+	void randomLn(){
+		int ln;
+		int rn;
+		
+		System.out.println(sadari.length+ ", "+sadari[0].length);
+		
+		for (int i=1; i<sadari[0].length; i++){
+			ln = r.nextInt(sadari.length-1);
+				for (int j=0;j<ln;j++){
+					rn = r.nextInt(sadari[0].length-1)+1;
+					addLn(rn, i);
+				}
+			}		
+		}	
+	
+	
+	int sadariTagi(int start){
+		pointr=start-1;
+		while(pointc+1 < sadari.length){
+			sadariCheck();
+		}
+		return pointr+1;
+	}
+	
+	void sadariCheck(){
+		if (sadari[pointc][pointr]==0 || sadari[pointc][pointr]==3){
+			pointc++;
+			return;
+		}
+		pointr = pointr + sadari[pointc][pointr];
+		sadari[pointc][pointr] = 3;
+	}
+	
+	
+	
+	// 사다리 출력	
+	void printSadari(){
+		for (int i =0;i<sadari.length;i++){
+		for (int j=0;j<sadari[i].length;j++){
+				System.out.print("|");
+			if (sadari[i][j]==1){
+				System.out.print("__");
+			}
+			else
+				System.out.print("  ");
+			}
+			System.out.println("");
+		}
+	}
+
+	
+}

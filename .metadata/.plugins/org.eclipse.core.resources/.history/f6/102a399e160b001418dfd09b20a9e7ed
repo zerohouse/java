@@ -1,0 +1,85 @@
+import java.util.Scanner;
+
+public class Sadari {
+	
+
+	public static void main(String[] args) {
+		//Scanner scan = new Scanner(System.in);
+		//System.out.print("줄 몇개? :");
+		int[][] sadari = new int[10][6];
+
+		drawln(1,1,sadari);
+		drawln(2,2,sadari);
+		drawln(1,5,sadari);
+		drawln(5,5,sadari);
+		drawln(7,5,sadari);
+		drawln(4,3,sadari);
+		drawln(3,1,sadari);
+		drawln(6,2,sadari);
+		drawln(5,1,sadari);
+		drawln(3,3,sadari);
+		drawln(1,4,sadari);
+		drawln(4,0,sadari);
+		drawln(9,0,sadari);
+		drawln(7,3,sadari);
+		print(sadari);
+		System.out.println(sadaritagi(sadari,2));
+		
+	
+	//	System.out.println(sadari[1].length);
+		
+		
+		
+	}
+	
+
+	static void drawln(int c, int r, int[][] ll){
+		try{
+			if(ll[c][r]==0&&ll[c][r+1]==0){
+			ll[c][r]=1;
+			ll[c][r+1]=-1;}
+			else
+			{
+				System.out.println("여러줄 그리면ㄴㄴ ");
+			}
+		}
+		catch (Exception e){}
+		
+	}
+	
+	static void print(int[][] sadari){
+		for (int i =0;i<sadari.length;i++){
+		for (int j=0;j<sadari[i].length;j++){
+				System.out.print("│");
+			if (sadari[i][j]==1){
+				System.out.print("──");
+			}
+			else
+				System.out.print("  ");
+			}
+			System.out.println("│");
+		}
+	}
+	
+	static int sadaritagi(int[][] sadari,int start){
+		int c=0;
+		int r=start;
+		while(c < sadari.length-1){
+			if (sadari[c][r]==0 || sadari[c][r]==3){
+				c++;
+				System.out.println("c:"+c+"  r:"+r + "  value:"+sadari[c][r]);
+			}
+			else{
+				r = r + sadari[c][r];
+				sadari[c][r] = 3;
+				System.out.println("c:"+c+"  r:"+r + "  value:"+sadari[c][r]);
+				
+			}
+		}
+		return r;
+
+	}
+	
+	
+
+}

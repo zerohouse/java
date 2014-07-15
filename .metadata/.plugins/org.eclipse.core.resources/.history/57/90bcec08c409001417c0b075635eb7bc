@@ -1,0 +1,25 @@
+import java.util.Scanner;
+
+public class Calculrator {
+	
+	int add(int i, int j){
+		return i+j;
+	}
+	
+	int minus(int i, int j){
+		return i-j;
+	}
+	
+	public static void main(String[] args){
+
+		
+		
+	}
+	
+}
+class Stringcal{
+
+	
+	
+	
+}
