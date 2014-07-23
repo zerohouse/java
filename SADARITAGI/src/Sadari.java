@@ -10,6 +10,8 @@ public class Sadari {
 		sadari = new int[c + 1][r];
 	}
 
+	
+	
 	void addLn(int c, int r) {
 		c--;
 		r--;
@@ -18,7 +20,9 @@ public class Sadari {
 			sadari[c][r + 1] = -1;
 		}
 	}
-
+	
+	
+	
 	void randomLn() {
 		int ln;
 		for (int i = 1; i < sadari[0].length; i++) {
@@ -49,6 +53,8 @@ public class Sadari {
 		return r + 1;
 	}
 	
+	// 사다리 출력
+	
 	int sadariTagiWithPrint(int start) {
 		int c = 0;
 		int r = start - 1;
@@ -65,8 +71,6 @@ public class Sadari {
 		return r + 1;
 	}
 	
-	// 사다리 출력
-
 	void printPath(int c, int r) {
 		for (int j = 0; j < sadari[0].length; j++) {
 			if (r == j)
@@ -87,7 +91,8 @@ public class Sadari {
 				System.out.print("|");
 				if (sadari[i][j] == 1) {
 					System.out.print("__");
-				} else
+				}
+				else
 					System.out.print("  ");
 			}
 			System.out.println("");

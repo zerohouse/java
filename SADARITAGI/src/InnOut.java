@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class InnOut {
 	public static void main(String[] args) {
 
-		int r, c;
+		int r, c, t;
 		int start = 0;
 		int res;
 
@@ -22,8 +22,41 @@ public class InnOut {
 		}
 		r = scan.nextInt();
 		Sadari s = new Sadari(r, c);
-
-		s.randomLn();
+		
+		
+		
+		System.out.println("1. 사다리 라인을 랜덤으로 생성합니다. ");
+		System.out.println("2. 사다리 라인을 직접 입력합니다. ");
+		System.out.print("선택해주세요! : ");
+		
+		
+		t=1;
+		
+		while (!scan.hasNextInt()){
+		scan.next();
+		System.err.print("에러! 다시 입력바랍니다: ");
+		}
+		t = scan.nextInt();
+		
+		//System.out.println();
+		
+		
+		
+		if (t==1){
+			s.randomLn();
+		}
+		
+		
+		
+		if (t==2){
+			
+		
+			
+		}
+		
+		
+		
+		
 		s.printSadari();
 		System.out.println("사다리가 생성되었습니다.");
 
@@ -41,4 +74,6 @@ public class InnOut {
 		scan.close();
 		System.out.print("종료합니다.");
 	}
+	
+	
 }

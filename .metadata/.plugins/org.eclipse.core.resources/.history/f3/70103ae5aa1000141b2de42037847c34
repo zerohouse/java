@@ -1,0 +1,21 @@
+import java.util.Scanner;
+
+
+public class Simple {
+
+	public static void main(String[] args) {
+		int r, c;
+		int start = 0;
+		int res;
+
+		Sadari s = new Sadari(r, c);
+
+		s.randomLn();
+		s.printSadari();
+		s.sadariTagi(start);
+		res = s.sadariTagi(start);
+		System.out.println("시작:" + start + ", 도착:" + res);
+
+	}
+
+}
