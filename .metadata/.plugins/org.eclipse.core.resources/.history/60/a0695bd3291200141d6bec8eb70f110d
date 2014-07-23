@@ -1,0 +1,11 @@
+
+public class Manual {
+	
+	Sadari addLn(Sadari s){
+		
+		
+		return s;
+		
+	}
+
+}

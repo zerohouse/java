@@ -7,24 +7,19 @@ public class InnOut {
 		int start = 0;
 		int res;
 
-		System.out.print("몇명인가요? ");
+		
 		Scanner scan = new Scanner(System.in);
-		while (!scan.hasNextInt()) {
-			scan.next(); // 잘못된 입력 값 버리기
-			System.err.print("에러! 다시 입력바랍니다: ");
-		}
-		c = scan.nextInt();
-
+		GetValue get = new GetValue();
+		
+		System.out.print("몇명인가요? ");
+		c = get.Int(scan);
+		
 		System.out.print("몇줄로 할까요? ");
-		while (!scan.hasNextInt()) {
-			scan.next(); // 잘못된 입력 값 버리기
-			System.err.print("에러! 다시 입력바랍니다: ");
-		}
-		r = scan.nextInt();
+		r = get.Int(scan);
+		
 		Sadari s = new Sadari(r, c);
 		
-		
-		
+			
 		System.out.println("1. 사다리 라인을 랜덤으로 생성합니다. ");
 		System.out.println("2. 사다리 라인을 직접 입력합니다. ");
 		System.out.print("선택해주세요! : ");
@@ -32,11 +27,7 @@ public class InnOut {
 		
 		t=1;
 		
-		while (!scan.hasNextInt()){
-		scan.next();
-		System.err.print("에러! 다시 입력바랍니다: ");
-		}
-		t = scan.nextInt();
+		t = get.Int(scan);
 		
 		//System.out.println();
 		
@@ -44,36 +35,40 @@ public class InnOut {
 		
 		if (t==1){
 			s.randomLn();
+			s.printSadari();
+			System.out.println("사다리가 생성되었습니다.");
+			while (start != -1) {
+				System.out.print("몇번을 고르셨나요? ");
+				start = get.Int(scan);
+				res = s.sadariTagi(start);
+				System.out.println("시작:" + start + ", 도착:" + res);
+			}			
 		}
 		
 		
 		
-		if (t==2){
-			
-		
-			
-		}
-		
-		
-		
-		
-		s.printSadari();
-		System.out.println("사다리가 생성되었습니다.");
+		else {
+			Manual m = new Manual();
+			m.manAddLn(scan, get, s);
+			System.out.println("사다리가 생성되었습니다.");
+			while (start != -1) {
+				System.out.print("몇번을 고르셨나요? ");
+				start = get.Int(scan);
+				res = m.sadariTagi(start, s);
+				System.out.println("시작:" + start + ", 도착:" + res);
+			}	
 
-		while (start != -1) {
-			System.out.print("몇번을 고르셨나요? ");
-			while (!scan.hasNextInt()) {
-				scan.next(); // 잘못된 입력 값 버리기
-				System.err.print("에러! 다시 입력바랍니다: ");
-			}
-			start = scan.nextInt();
-			res = s.sadariTagiWithPrint(start);
-			// s.printSadari();
-			System.out.println("시작:" + start + ", 도착:" + res);
 		}
+		
+		
+
+
+
 		scan.close();
 		System.out.print("종료합니다.");
 	}
+	
+
 	
 	
 }

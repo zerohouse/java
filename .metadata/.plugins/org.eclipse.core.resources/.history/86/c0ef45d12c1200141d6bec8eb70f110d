@@ -1,0 +1,35 @@
+import java.util.Scanner;
+
+
+public class GetValue {
+
+	int Int(Scanner s){
+		while (!s.hasNextInt()) {
+			s.next(); // 잘못된 입력 값 버리기
+			System.err.print("에러! 다시 입력바랍니다: ");
+		}
+		int res = s.nextInt();
+		return res;
+	}
+	
+	int[] getXY(Scanner s){
+		
+		String input;
+		String[] strxy = new String[2];
+		int[] xy = new int[2];
+		
+		input = s.next();
+		strxy = input.split(" |,");
+		
+		try {
+			xy[0] = Integer.parseInt(strxy[0]);
+			xy[1] = Integer.parseInt(strxy[1]);
+		}
+		catch (Exception e) {
+			throw e;
+		}
+		
+		return xy;
+	}
+	
+}

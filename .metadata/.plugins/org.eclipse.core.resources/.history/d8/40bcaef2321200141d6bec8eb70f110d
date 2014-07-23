@@ -1,0 +1,151 @@
+import java.util.Random;
+import java.util.Scanner;
+
+public class Sadari
+
+
+ {
+
+	int[][] sadaric;
+	int[][] sadarir;
+	
+	Random r = new Random();
+
+	Sadari(int c, int r) {
+		sadaric = new int[c + 1][r];
+		sadarir = new int[c + 1][r];
+	}
+
+	
+	
+	void addLn(int c, int r) {
+		c--;
+		r--;
+		if (sadaric[c][r] == 0 && sadaric[0].length > r - 1) {
+			sadaric[c][r] = 1;
+			sadaric[c][r + 1] = -1;
+		}
+	}
+	
+	void addLnMan(int c, int r, int c2, int r2){
+		c--;
+		r--;
+		c2--;
+		r2--;
+		try{
+			if (sadaric[c][r] == 0 && sadaric[c2][r2] == 0) {
+				sadaric[c][r] = c-c2;
+				sadaric[c2][r2] = c2-c;
+				sadarir[c][r] = r-r2;
+				sadarir[c2][r2] = r2-r;
+				
+				System.out.println(sadaric[c][r]);
+				System.out.println(sadaric[c2][r2]);
+				System.out.println(sadarir[c][r]);
+				System.out.println(sadarir[c2][r2]);
+				
+				System.out.println((c+1) +","+ (r+1)+"과 "+ (c2+1)+","+(r2+1) +"에 라인이 추가 되었습니다.");
+			}
+		}
+		catch (Exception e){
+			System.out.println("잘못된 입력입니다.");
+		}
+	}
+	
+	void addLnByManual(Scanner s, GetValue g){
+		int[] cr = new int[2];
+		
+		System.out.print("출발점 : ");
+		cr = g.getXY(s);
+		int c = cr[0];
+		int r = cr[1];
+		
+		System.out.print("도착점 : ");
+		cr = g.getXY(s);
+		int c2 = cr[0];
+		int r2 = cr[1];
+		
+		addLnMan(c,r,c2,r2);
+
+	}
+	
+	
+	
+	
+	void randomLn() {
+		int ln;
+		for (int i = 1; i < sadaric[0].length; i++) {
+			ln = r.nextInt(sadaric.length - 1);
+			randomCol(ln, i);
+			System.out.println(ln +","+i);
+		}
+	}
+
+	void randomCol(int ln, int i) {
+		int rn;
+		for (int j = 0; j < ln; j++) {
+			rn = r.nextInt(sadaric.length - 1);
+			addLn(rn + 1, i);
+		}
+	}
+
+	int sadariTagi(int start) {
+		int c = 0;
+		int r = start - 1;
+		if (r >= sadaric[0].length || r < 0) {
+			System.out.println("없는 번호를 골랐습니다.");
+			return 0;
+		}
+		while (c + 1 < sadaric.length) {
+			r = r + sadaric[c][r];
+			c = c + 1 + sadarir[c][r];
+		}
+		return r + 1;
+	}
+	
+	// 사다리 출력
+	
+	int sadariTagiWithPrint(int start) {
+		int c = 0;
+		int r = start - 1;
+		if (r >= sadaric[0].length || r < 0) {
+			System.out.println("없는 번호를 골랐습니다.");
+			return 0;
+		}
+		printPath(c, r);
+		while (c + 1 < sadaric.length) {
+			r = r + sadaric[c][r];
+			c = c + 1 + sadarir[c][r];
+			printPath(c, r);
+		}
+		return r + 1;
+	}
+	
+	void printPath(int c, int r) {
+		for (int j = 0; j < sadaric[0].length; j++) {
+			if (r == j)
+				System.out.print("*");
+			else
+				System.out.print("|");
+			if (sadaric[c][j] == 1)
+				System.out.print("__");
+			else
+				System.out.print("  ");
+		}
+		System.out.println("");
+	}
+
+	void printSadari() {
+		for (int i = 0; i < sadaric.length; i++) {
+			for (int j = 0; j < sadaric[i].length; j++) {
+				System.out.print("|");
+				if (sadaric[i][j] == 1) {
+					System.out.print("__");
+				}
+				else
+					System.out.print("  ");
+			}
+			System.out.println("");
+		}
+	}
+}
