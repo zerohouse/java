@@ -1,0 +1,62 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class Card {
+	int id, attack, defense, ability;
+	String name, description;
+
+	Card(int id) {
+		this.id = id;
+	}
+
+	String readFile() {
+		String s="";
+		try {
+			File f = new File("card.txt");
+			System.out.println(f.getAbsolutePath());
+			System.out.println(f.getCanonicalPath());
+			
+			
+			BufferedReader in = new BufferedReader(new FileReader(f));
+			while ((s = in.readLine()) != null) {
+				System.out.println(s);
+			}
+			in.close();
+		} catch (IOException e) {
+			System.err.println(e); // 에러가 있다면 메시지 출력
+			System.exit(1);
+		}
+		return s;
+
+	}
+
+	void addCard() {
+		try {
+
+			String s = id + "||" + name + "||" + attack + "||" + defense + "||"
+					+ ability + "||" + description + "\n";
+			System.out.println(name + "카드가 추가되었습니다.");
+
+			File file = new File("cards.txt");
+
+			if (!file.exists()) {
+				file.createNewFile();
+			}
+
+			FileWriter fw = new FileWriter(file.getName(), true);
+			BufferedWriter bufferWritter = new BufferedWriter(fw);
+			bufferWritter.write(s);
+			bufferWritter.close();
+
+			System.out.println("카드를 저장했습니다.");
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+}
