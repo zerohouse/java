@@ -1,0 +1,29 @@
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+public class Card {
+	int id, attack, defense, ability;
+
+	Card(int id, int a, int d, int ab) {
+		this.id = id;
+		this.attack = a;
+		this.defense = d;
+		this.ability = ab;
+	}
+
+	void AddCard() {
+		String s = id + "||" + attack + "||" + defense + "||" + ability;
+		File outputFile = new File("cards.txt");
+		try {
+			FileOutputStream outStream = new FileOutputStream(outputFile);
+			outStream.write(s.getBytes(), 0 ,s.length());
+			outStream.write(s.getBytes(),0,s.length());
+
+			outStream.flush();
+			outStream.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+}

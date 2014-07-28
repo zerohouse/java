@@ -1,0 +1,11 @@
+
+public class Card {
+	int id, attack, defense, ability;
+
+	Card(int id, int a, int d, int ab){
+		this.id = id;
+		this.attack = a;
+		this.defense = d;
+		this.ability = ab;
+	}
+}

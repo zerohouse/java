@@ -1,0 +1,22 @@
+import java.util.Scanner;
+
+
+public class Console {
+
+	public static void main(String[] args) {
+		
+		Scanner scan = new Scanner(System.in);
+		GetValue get = new GetValue();
+		
+		System.out.println("Welcome to Nextone");
+		System.out.println("1. 덱을 구성한다.");
+		System.out.println("2. 게임을 시작한다.");
+		get.Int(scan);
+		
+
+		
+		
+	}
+
+}
+
