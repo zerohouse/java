@@ -1,0 +1,53 @@
+import java.util.Scanner;
+
+
+public class Dek {
+	Card[] dek = new Card[30];
+	
+	String[] getDekList() {
+		FileIO f = new FileIO();
+		String cards = f.readFile("dek.nx");
+		String[] dek = cards.split("\n");
+		return dek;
+	}
+	
+	void showDek(String[] dek){
+		int i=0;
+		for (String s : dek){
+			String[] tmp = s.split("@%@");
+			i++;
+			System.out.println(i+". "+tmp[1]);
+		}
+	}
+	
+	String select(int select){
+		String dek[] = getDekList();
+		System.out.println(dek[select]);
+		dek[select].split("@%@");
+		System.out.println(dek[1]);
+		return dek[1];
+	}
+	
+	void SelectDek(Scanner s ,GetValue g){
+		System.out.println("덱을 선택해주세요.");
+		String[] dek = getDekList();
+		showDek(dek);
+		int pick = g.Int(s);
+		String selected = select(pick);
+		FileIO f = new FileIO();
+		String res = f.readFile("./dek/"+selected+".nx");
+		System.out.println(res);
+		
+	}
+	
+	
+	void loadDek(String dekname){
+		
+	}
+	
+	void makeNewDek(){
+		
+	}
+	
+	
+}

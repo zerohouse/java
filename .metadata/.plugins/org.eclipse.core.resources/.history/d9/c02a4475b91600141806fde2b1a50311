@@ -1,0 +1,28 @@
+
+public class Dek {
+	Card[] dek = new Card[30];
+	
+	String[] showDekList() {
+		FileIO f = new FileIO();
+		String cards = f.readFile("dek.nx");
+		String[] dek = cards.split("\n");
+		return dek;
+	}
+	
+	String selectDek(int select){
+		String dek[] = showDekList();
+		dek[select].split("@%@");
+		return dek[1]+".txt";
+	}
+	
+	
+	void loadDek(String dekname){
+		
+	}
+	
+	void makeNewDek(){
+		
+	}
+	
+	
+}

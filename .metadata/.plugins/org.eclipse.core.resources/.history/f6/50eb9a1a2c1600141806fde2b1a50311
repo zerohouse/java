@@ -1,0 +1,60 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class Card {
+	int id, attack, defense, type, cost;
+	String name, description;
+
+
+	void readCards() {
+		String cards = readFile();
+
+		String[] eachcard = cards.split("\n");
+		for (String s : eachcard) {
+			String[] tmp = s.split("@%@");
+			try {
+				System.out.println("No:" + tmp[0] + " " + tmp[1] + "[" + tmp[2]
+						+ "]" + "(" + tmp[3] + "/" + tmp[4] + "/" + tmp[5]
+						+ ")" + ">" + tmp[6]);
+				
+				id = Integer.parseInt(tmp[0])+1;
+				
+			} catch (Exception e) {
+
+			}
+		}
+
+	}
+
+	
+	
+
+	void addCard() {
+		try {
+			String s = id + "@%@" + name + "@%@" + cost + "@%@" + attack + "@%@" + defense
+					+ "@%@" + type + "@%@" + description + "\n\r";
+			System.out.println(name + "카드가 추가되었습니다.");
+
+			File file = new File("cards.txt");
+
+			if (!file.exists()) {
+				file.createNewFile();
+			}
+
+			FileWriter fw = new FileWriter(file.getName(), true);
+			BufferedWriter bufferWritter = new BufferedWriter(fw);
+			bufferWritter.write(s);
+			bufferWritter.close();
+
+			System.out.println("카드를 저장했습니다.");
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+}

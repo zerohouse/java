@@ -1,0 +1,80 @@
+import java.util.Scanner;
+
+public class Dek {
+	Card[] dek = new Card[30];
+
+	Card[] loadDefaultCards() {
+		FileIO f = new FileIO();
+		String c = f.readFile("cards.nx");
+		String[] eachcard = c.split("\n");
+		Card[] cards = new Card[100];
+		System.out.println(eachcard.length);
+		
+		String[] tmp = new String[7];
+		cards[0].name = "";
+		for (int i = 1; i < eachcard.length; i++) {
+
+			tmp = eachcard[i].split("@%@");
+			System.out.println(tmp.length);
+			System.out.println(eachcard[i]);
+
+			cards[i].name = tmp[1];
+			cards[i].cost = Integer.parseInt(tmp[2]);
+			cards[i].attack = Integer.parseInt(tmp[3]);
+			cards[i].defense = Integer.parseInt(tmp[4]);
+			cards[i].type = Integer.parseInt(tmp[5]);
+			cards[i].description = tmp[6];
+		}
+		return cards;
+
+	}
+
+	String[] getDekList() {
+		FileIO f = new FileIO();
+		String cards = f.readFile("dek.nx");
+		String[] dek = cards.split("\n");
+		return dek;
+	}
+
+	void showDek(String[] dek) {
+		int i = 0;
+		for (String s : dek) {
+			String[] tmp = s.split("@%@");
+			i++;
+			System.out.println(i + ". " + tmp[1]);
+		}
+	}
+
+	String select(int select) {
+		String dek[] = getDekList();
+		String[] splt = dek[select].split("@%@");
+		return splt[1];
+	}
+
+	void SelectDek(Scanner scan, GetValue g) {
+		System.out.println("덱을 선택해주세요.");
+		String[] dek = getDekList();
+		showDek(dek);
+		int pick = g.Int(scan);
+		String selected = select(pick);
+		FileIO f = new FileIO();
+		String res = f.readFile("./dek/" + selected + ".nx");
+		System.out.println(res);
+		String[] sdek = res.split("@%@");
+
+		System.out.println("덱이름: " + sdek[0]);
+		Card[] cards = loadDefaultCards();
+		// System.out.println(cards[1].name);
+
+		// //for (int i = 1; i < sdek.length-1; i++) {
+		// String[] tmp = sdek[i].split("#");
+		// System.out.println(tmp[0]);
+		// System.out.println(cards[Integer.parseInt(tmp[0])].name);
+		// }
+	}
+
+	void loadCards() {
+
+	}
+
+}

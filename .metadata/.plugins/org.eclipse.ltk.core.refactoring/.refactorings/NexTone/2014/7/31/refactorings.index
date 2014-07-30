@@ -3,3 +3,5 @@
 1406467574365	Delete element
 1406467771812	Delete element
 1406468122456	Delete element
+1406689762045	Extract method 'saveDek'
+1406695949856	Extract method 'dekActivity'

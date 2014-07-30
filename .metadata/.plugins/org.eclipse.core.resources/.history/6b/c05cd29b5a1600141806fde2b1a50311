@@ -1,0 +1,8 @@
+
+public class Dek {
+	Card[] dek = new Card[30];
+	
+	
+	
+	
+}

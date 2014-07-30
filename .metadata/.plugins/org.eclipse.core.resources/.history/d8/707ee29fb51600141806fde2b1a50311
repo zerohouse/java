@@ -1,0 +1,14 @@
+
+public class Dek {
+	Card[] dek = new Card[30];
+	
+	void loadDek(String dekname){
+		
+	}
+	
+	void makeNewDek(){
+		
+	}
+	
+	
+}

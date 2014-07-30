@@ -1,0 +1,47 @@
+public class Card {
+	int id, attack, defense, type, cost;
+	String name, description;
+
+
+	void readCards() {
+		FileIO f = new FileIO();
+		String cards = f.readFile("cards.nx");
+
+		String[] eachcard = cards.split("\n");
+		for (String s : eachcard) {
+			String[] tmp = s.split("@%@");
+			try {
+				System.out.println("No:" + tmp[0] + " " + tmp[1] + "[" + tmp[2]
+						+ "]" + "(" + tmp[3] + "/" + tmp[4] + "/" + tmp[5]
+						+ ")" + ">" + tmp[6]);
+				
+				id = Integer.parseInt(tmp[0])+1;
+				
+			} catch (Exception e) {
+
+			}
+		}
+
+	}
+
+	
+	
+
+	void addCard() {
+		try {
+			String s = id + "@%@" + name + "@%@" + cost + "@%@" + attack + "@%@" + defense
+					+ "@%@" + type + "@%@" + description + "\n\r";
+			System.out.println(name + "카드가 추가되었습니다.");
+			
+			FileIO f = new FileIO();
+
+			f.saveFile("cards.nx", s);
+
+			System.out.println("카드를 저장했습니다.");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+}
