@@ -12,7 +12,9 @@ public class Console {
 		System.out.println("1. 게임을 시작한다.");
 		System.out.println("2. 덱을 구성한다.");
 		System.out.println("3. 카드를 만든다.");
+		
 		int type = get.Int(scan);
+		
 		if (type == 1) {
 			System.out.println("게임을 시작합니다.");
 		} else if (type == 2) {
@@ -28,16 +30,9 @@ public class Console {
 	}
 
 	private static void dekActivity(Scanner scan, GetValue get) {
-		Dek d = new Dek();
-		Card[] defaultcards = d.loadDefaultCards();
-		String[] dek = d.getDekList();
 		
-		d.showDekList(dek);
-		System.out.print("덱을 선택해주세요: ");
-		int pick = get.Int(scan) - 1;
-		String cardsindek = d.SelectDek(pick, defaultcards);
+		Dek d = new Dek(scan, get);
 
-		d.showDek(cardsindek, defaultcards);
 
 		while (true) {
 			System.out.println("1. 카드 추가하기");
@@ -51,34 +46,33 @@ public class Console {
 
 			if (deks == 1) {
 
-				d.showCards(defaultcards);
+				d.showCards();
 				System.out.print("추가할카드를 선택해주세요. 0을 입력하면 종료합니다: ");
 				add = get.Int(scan);
-				cardsindek = d.addCard(add, cardsindek);
-				d.saveDek(pick, cardsindek);
-				d.showDek(cardsindek, defaultcards);
+				d.addCard(add-1);
+				d.saveCardsinDek();
+				d.showDek();
 
 			}
 
 			else if (deks == 2) {
-				d.showDek(cardsindek, defaultcards);
+				d.showDek();
 				System.out.print("삭제할카드를 선택해주세요. 0을 입력하면 종료합니다: ");
 
 				del = get.Int(scan);
-				cardsindek = d.delCard(del, cardsindek);
+				d.delCard(del);
 
-				d.saveDek(pick, cardsindek);
-				d.showDek(cardsindek, defaultcards);
+				d.saveCardsinDek();
+				d.showDek();
 			}
 
 			else if (deks == 3) {
 				System.out.print("새로운 이름을 입력해 주세요: ");
 				dekname = scan.next();
-				cardsindek = d.reName(dekname, cardsindek);
-				d.saveDek(pick, cardsindek);
-
-				d.showDek(cardsindek, defaultcards);
-				d.saveDekList(dek);
+				d.reName(dekname);
+				d.saveCardsinDek();
+				d.saveDekList();
+				d.showDek();
 			}
 
 			else {

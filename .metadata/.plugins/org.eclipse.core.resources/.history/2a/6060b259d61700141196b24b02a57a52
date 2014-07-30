@@ -1,0 +1,180 @@
+import java.util.Scanner;
+
+public class Dek {
+
+	static final String SEPERATOR = "@%@";
+	static final String SEP = "#";
+	private String cardsindek;
+	private String[] cardsinDek;
+	private Card[] defaultcards;
+	private String[] dek;
+	private int pick;
+
+	public Dek(Scanner s, GetValue get) {
+		defaultcards = loadDefaultCards();
+		getDekList();
+		showDekList();
+		System.out.print("덱을 선택해주세요: ");
+		pick = get.Int(s) - 1;
+		SelectDek();
+		showDek();
+
+	}
+
+	Card[] loadDefaultCards() {
+		FileIO f = new FileIO();
+		String c = f.readFile("cards.nx");
+		String[] eachcard = c.split("\n");
+		Card[] cards = new Card[eachcard.length];
+
+		String[] tmp = new String[7];
+
+		for (int i = 0; i < eachcard.length - 1; i++) {
+			Card tmpcard = new Card();
+			cards[i] = tmpcard;
+
+			tmp = eachcard[i].split(SEPERATOR);
+
+			cards[i].id = i + 1;
+			cards[i].name = tmp[1];
+			cards[i].cost = Integer.parseInt(tmp[2]);
+			cards[i].attack = Integer.parseInt(tmp[3]);
+			cards[i].defense = Integer.parseInt(tmp[4]);
+			cards[i].type = Integer.parseInt(tmp[5]);
+			cards[i].description = tmp[6];
+		}
+		return cards;
+	}
+
+	void getDekList() {
+		FileIO f = new FileIO();
+		String deklist = f.readFile("dek.nx");
+		dek = deklist.split(SEP);
+	}
+
+	void saveDekList() {
+		FileIO f = new FileIO();
+		String filename = "dek.nx";
+		String res = "\n";
+		for (int i = 0; i < dek.length - 1; i++) {
+			res += dek[i] + SEP;
+		}
+		res += dek[dek.length - 1];
+		f.saveFile(filename, res, false);
+	}
+
+	void saveCardsinDek() {
+		FileIO f = new FileIO();
+		String filename = "./dek/Dek" + (pick + 1) + ".nx";
+		
+		cardsindek = "\n";
+		for (String s : cardsinDek){
+			cardsindek += s + "@%@";
+		}
+		f.saveFile(filename, "\n" + cardsindek, false);
+	}
+
+	void showDekList() {
+		int i = 0;
+		for (String s : dek) {
+			i++;
+			System.out.println(String.format("%d. %s", i, s));
+		}
+	}
+
+	void SelectDek() {
+		FileIO f = new FileIO();
+		cardsindek = f.readFile(String.format("./dek/Dek%d.nx", pick + 1));
+		cardsinDek = cardsindek.split(SEPERATOR);
+	}
+
+	void showDek() {
+		cardsinDek = cardsindek.split(SEPERATOR);
+
+		System.out.println("\n\r <" + cardsinDek[0] + "의 카드목록>");
+
+		for (int i = 1; i < cardsinDek.length - 1; i++) {
+			if (!cardsinDek[i].isEmpty()) {
+				String[] tmp = cardsinDek[i].split(SEP);
+				System.out.print("(" + (i) + ") ");
+
+				System.out
+						.println(String.format("%s[%d](%d/%d) %s장",
+								defaultcards[Integer.parseInt(tmp[0])].name,
+								defaultcards[Integer.parseInt(tmp[0])].cost,
+								defaultcards[Integer.parseInt(tmp[0])].attack,
+								defaultcards[Integer.parseInt(tmp[0])].defense,
+								tmp[1]));
+			}
+
+		}
+		System.out.println();
+	}
+
+	void showCards() {
+		for (int i = 0; i < defaultcards.length - 1; i++) {
+			System.out.println(String.format("%d. %s[%d](%d/%d)",
+					defaultcards[i].id, defaultcards[i].name,
+					defaultcards[i].cost, defaultcards[i].attack,
+					defaultcards[i].defense));
+		}
+
+	}
+
+	void addCard(int add) {
+		String[] tmp;
+		boolean is = false;
+
+		cardsindek = "";
+		for (int i = 1; i < origin.length - 1; i++) {
+
+			tmp = origin[i].split(SEP);
+
+			if (Integer.parseInt(tmp[0]) == add) {
+				int added = Integer.parseInt(tmp[1]) + 1;
+				cardsindek += SEPERATOR + tmp[0] + SEP + added;
+				is = true;
+			} else {
+				cardsindek += SEPERATOR + origin[i];
+			}
+		}
+
+		if (is == false) {
+			cardsindek += SEPERATOR + add + SEP + 1 ;
+		}
+
+		cardsindek = origin[0] + cardsindek + SEPERATOR;
+
+	}
+
+	void delCard(int del) {
+
+		String origin[] = cardsindek.split(SEPERATOR);
+		String[] tmp;
+		cardsindek = "";
+
+		for (int i = 2; i < origin.length; i++) {
+
+			tmp = origin[i].split(SEP);
+
+			if (i == del + 1) {
+				int added = Integer.parseInt(tmp[1]) - 1;
+				if (added != 0) {
+					cardsindek += SEPERATOR + tmp[0] + SEP + added;
+				}
+			} else {
+				cardsindek += SEPERATOR + origin[i];
+			}
+		}
+
+		cardsindek = origin[0] + SEPERATOR + origin[1] + cardsindek + SEPERATOR;
+
+	}
+
+	public void reName(String dekname) {
+		String origin[] = cardsindek.split(SEPERATOR, 2);
+		dek[pick] = dekname;
+		cardsindek = dekname + SEPERATOR + origin[1];
+	}
+
+}
