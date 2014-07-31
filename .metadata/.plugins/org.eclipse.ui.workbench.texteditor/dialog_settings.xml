@@ -2,23 +2,36 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="try" key="selection"/>
+		<item value="tmp" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
-			<item value="try"/>
-			<item value="sadarui"/>
+			<item value="tmp"/>
+			<item value="get"/>
+			<item value="cards"/>
+			<item value="cardsindek"/>
+			<item value="save"/>
+			<item value="savecards"/>
+			<item value="sdek"/>
+			<item value="saveDek"/>
 		</list>
 		<list key="replacehistory">
+			<item value="cardstring"/>
+			<item value="Int(scan);"/>
+			<item value="Int()"/>
+			<item value="SEP"/>
+			<item value="SEPERATOR"/>
+			<item value="Seperator"/>
+			<item value=""/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="263" key="DIALOG_WIDTH"/>
 		<item value="1|Lucida Grande|11.0|0|COCOA|1|LucidaGrande" key="DIALOG_FONT_NAME"/>
 		<item value="399" key="DIALOG_HEIGHT"/>
-		<item value="594" key="DIALOG_X_ORIGIN"/>
-		<item value="286" key="DIALOG_Y_ORIGIN"/>
+		<item value="1161" key="DIALOG_X_ORIGIN"/>
+		<item value="314" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>
