@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Console {
@@ -6,7 +7,7 @@ public class Console {
 
 		Scanner scan = new Scanner(System.in);
 		GetValue get = new GetValue();
-		Card c = new Card();
+		EditCard c = new EditCard();
 
 		System.out.println("Welcome to Nextone");
 		System.out.println("1. 게임을 시작한다.");
@@ -17,12 +18,21 @@ public class Console {
 		
 		if (type == 1) {
 			System.out.println("게임을 시작합니다.");
+			Dek d = new Dek();
+			ArrayList<Integer> able = new ArrayList<Integer>();
+			able = d.showDekWithAvavility();
+			for(Integer i :able){
+				System.out.println(i);
+			}
+			
+			
+			
 		} else if (type == 2) {
 			dekActivity(scan, get);
 
 		} else if (type == 3) {
 			newCard(get, scan, c);
-
+			
 		} else {
 			System.out.println("종료합니다.");
 		}
@@ -31,7 +41,12 @@ public class Console {
 
 	private static void dekActivity(Scanner scan, GetValue get) {
 		
-		Dek d = new Dek(scan, get);
+		Dek d = new Dek();
+		d.showDekList();
+		System.out.print("덱을 선택해주세요: ");
+		d.pick = get.Int(scan) - 1;
+		d.selectDek();
+		d.showDek();
 
 
 		while (true) {
@@ -40,12 +55,11 @@ public class Console {
 			System.out.println("3. 덱 이름 변경");
 			System.out.println("4. 뒤로");
 
-			int deks = get.Int(scan);
+			int choose = get.Int(scan);
 			int add, del;
 			String dekname;
 
-			if (deks == 1) {
-
+			if (choose == 1) {
 				d.showCards();
 				System.out.print("추가할카드를 선택해주세요. 0을 입력하면 종료합니다: ");
 				add = get.Int(scan);
@@ -55,23 +69,21 @@ public class Console {
 
 			}
 
-			else if (deks == 2) {
+			else if (choose == 2) {
 				d.showDek();
 				System.out.print("삭제할카드를 선택해주세요. 0을 입력하면 종료합니다: ");
-
 				del = get.Int(scan);
 				d.delCard(del);
-
 				d.saveCardsinDek();
 				d.showDek();
 			}
 
-			else if (deks == 3) {
+			else if (choose == 3) {
 				System.out.print("새로운 이름을 입력해 주세요: ");
 				dekname = scan.next();
 				d.reName(dekname);
 				d.saveCardsinDek();
-				d.saveDekList();
+				d.saveDek();
 				d.showDek();
 			}
 
@@ -81,7 +93,7 @@ public class Console {
 		}
 	}
 
-	static void newCard(GetValue get, Scanner scan, Card c) {
+	static void newCard(GetValue get, Scanner scan, EditCard c) {
 
 		while (true) {
 

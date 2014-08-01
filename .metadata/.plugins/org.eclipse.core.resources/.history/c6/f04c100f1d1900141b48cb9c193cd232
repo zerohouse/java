@@ -1,0 +1,5 @@
+public class Card {
+	int attack, attackdefault, defense, maxdefense, type, cost;
+	String name, description;
+
+}

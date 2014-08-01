@@ -1,0 +1,22 @@
+public class Card {
+	int idinfield, attack, attackdefault, defense, maxdefense, type, cost,
+			attackable;
+
+	Player player;
+
+	void attackTarget(Card target) {
+		defense -= target.attack;
+		target.defense -= attack;
+		checkWin(target);
+	}
+
+	void checkWin(Card target) {
+		if (player.king.defense <= 0 && player.enemy.king.defense <= 0) {
+			System.out.println("draw");
+		} else if (player.king.defense <= 0) {
+			System.out.println("You Lose");
+		} else if (player.enemy.king.defense <= 0) {
+			System.out.println("You Win");
+		}
+	};
+}

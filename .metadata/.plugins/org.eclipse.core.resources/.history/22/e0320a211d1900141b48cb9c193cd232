@@ -1,0 +1,4 @@
+public class Card {
+	int attack, attackdefault, defense, maxdefense, type, cost, attackable;
+
+}

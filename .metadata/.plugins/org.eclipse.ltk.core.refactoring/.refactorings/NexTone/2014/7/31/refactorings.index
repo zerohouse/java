@@ -5,3 +5,7 @@
 1406468122456	Delete element
 1406689762045	Extract method 'saveDek'
 1406695949856	Extract method 'dekActivity'
+1406771662583	Extract method 'isInDek'
+1406772008577	Extract method 'printCard'
+1406772370746	Extract method 'printCardByID'
+1406812996966	Delete element

@@ -1,0 +1,10 @@
+public class Card {
+	int idinfield, attack, attackdefault, defense, maxdefense, type, cost,
+			attackable;
+	
+
+	void attack(Card target){
+		defense -= target.attack;
+		target.defense -= attack;
+	}
+}
