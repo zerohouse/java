@@ -1,47 +1,52 @@
 public class Card {
+	int index, attack, attackdefault, defense, maxdefense, type, cost,
+			attackable, maxattackable;
+	boolean active;
+	String name,description;
 
-	static final String SEPERATOR = "@%@";
+	Player player;
 
-	int id, attack, defense, type, cost;
-	String name, description;
-
-	void readCards() {
-		FileIO f = new FileIO();
-		String cards = f.readFile("cards.nx");
-
-		String[] eachcard = cards.split("\n");
-		for (String s : eachcard) {
-			String[] tmp = s.split(SEPERATOR);
-
-			try {
-				System.out.println(String.format(
-						"%d. %s[%s] (%s/%s) Type:%s - %s",
-						(Integer.parseInt(tmp[0]) + 1), tmp[1], tmp[2], tmp[3],
-						tmp[4], tmp[5], tmp[6]));
-
-				id = Integer.parseInt(tmp[0]) + 1;
-			} catch (Exception e) {
-			}
-
-		}
-
+	public Card(int attack, int defense, int cost) {
+		this.attack = attack;
+		this.attackdefault = attack;
+		this.defense = defense;
+		this.maxdefense = defense;
+		this.type = 0; // 0은 기본하수인.
+		this.cost = cost;
+		this.attackable = 0;
+		this.maxattackable = 1;
+		this.active = false;
 	}
 
-	void addCard() {
-		try {
-			String s = id + SEPERATOR + name + SEPERATOR + cost + SEPERATOR
-					+ attack + SEPERATOR + defense + SEPERATOR + type
-					+ SEPERATOR + description + "\n\r";
-			System.out.println(name + "카드가 추가되었습니다.");
-
-			FileIO f = new FileIO();
-
-			f.saveFile("cards.nx", s, true);
-			System.out.println("저장했습니다.");
-
-		} catch (Exception e) {
-			e.printStackTrace();
+	void attackTarget(Card target) {
+		if(attackable<1){
+			System.out.println("공격 불가능합니다.");
+			return;
 		}
+		attackable--;
+		defense -= target.attack;
+		target.defense -= attack;
+		checkWinner();
+		checkAlive(target);
+	}
 
+	private void checkAlive(Card target) {
+		if(defense<1){
+			player.removeCard(this);
+		}
+		if (target.defense<1){
+			target.player.removeCard(target);
+		}
+		
+	}
+
+	void checkWinner() {
+		if (player.king.defense <= 0 && player.enemy.king.defense <= 0) {
+			System.out.println("draw");
+		} else if (player.king.defense <= 0) {
+			System.out.println("You Lose");
+		} else if (player.enemy.king.defense <= 0) {
+			System.out.println("You Win");
+		}
 	}
 }

@@ -1,0 +1,35 @@
+
+
+import java.util.ArrayList;
+import java.util.Stack;
+
+
+public class Player {
+	int mana, maxmana;
+	Card king;
+	Player enemy;
+	ArrayList<Card> mycards;
+	Stack<Card> dummy;
+	Dek dek;
+	
+	Player(Dek d){
+		dek = d;
+		mycards = new ArrayList<Card>;
+	}
+
+	void newTurn() {
+		maxmana++;
+		mana = maxmana;
+		mycards.add(dummy.pop());
+		for (Card card : mycards) {
+			card.attackable = card.maxattackable;
+		}
+	}
+
+	public void removeCard(Card card) {
+		mycards.remove(card.index);
+		
+	}
+
+
+}

@@ -1,0 +1,23 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+
+public class GetValue {
+	public int Int(Scanner scan){
+		while (!scan.hasNextInt()) {
+			scan.next(); // 잘못된 입력 값 버리기
+			System.err.print("에러! 다시 입력바랍니다: ");
+		}
+		int res = scan.nextInt();
+		return res;
+	}
+	
+	public int dek(Scanner scan, ArrayList<Integer> dek){
+		int select = Int(scan);;
+		if (!dek.contains(select)) {
+			System.err.print("유효하지 않은 덱입니다.");
+			dek(scan, dek);
+		}
+		return select;
+	}
+}

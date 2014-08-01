@@ -1,0 +1,84 @@
+import java.util.ArrayList;
+import java.util.Random;
+import java.util.Stack;
+
+public class Player {
+	int mana, maxmana;
+	Card king;
+	Player enemy;
+	ArrayList<Card> mycards;
+	Stack<Card> dummy;
+	ArrayList<Card> dek;
+	ArrayList<Card> hand;
+
+	Player() {
+		dek = new ArrayList<Card>();
+		mycards = new ArrayList<Card>();
+		hand = new ArrayList<Card>();
+		makeKing();
+	}
+
+	private void makeKing() {
+		king = new Card(0, 30, 0);
+		mycards.add(king);
+	}
+
+	void newTurn() {
+		maxmana++;
+		mana = maxmana;
+		mycards.add(dummy.pop());
+		for (Card card : mycards) {
+			card.attackable = card.maxattackable;
+		}
+	}
+
+	public void removeCard(Card card) {
+		mycards.remove(card.index);
+	}
+
+	public void chooseFirstCard(int size) {
+		Random random = new Random();
+		int[] firstcards = new int[size];
+		int ran = 0;
+		for (int i = 0; i < size; i++) {
+			while (hasSameElement(firstcards, ran)) {
+				ran = random.nextInt(29);
+			}
+			firstcards[i] = ran + 1;
+		}
+
+		for (int i : firstcards) {
+			hand.add(dek.get(i - 1));
+		}
+	}
+
+	public boolean hasSameElement(int[] array, int value) {
+		for (int i : array) {
+			if (i == value) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public void changeFirstCard(int[] change) {
+
+		Card[] tmp = new Card[change.length];
+
+		for (int i = change.length - 1; -1 < i; i--) {
+			tmp[i] = hand.get(i);
+			hand.remove(i);
+		}
+
+	}
+
+	public void printHand() {
+		int i = 0;
+		for (Card card : hand) {
+			i++;
+			System.out.println(String.format("(%d) %s[%d] (%d/%d)", i,
+					card.name, card.cost, card.attack, card.defense));
+		}
+	}
+
+}

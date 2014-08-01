@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Dek {
 
@@ -8,7 +7,7 @@ public class Dek {
 	private String cardstring; // cardStrInDek
 	private ArrayList<String> cards; // (0) = cards 갯수
 
-	private EditCard[] defaultcards;
+	private CardInfo[] defaultcards;
 	private String[] dek;
 	public int pick;
 
@@ -21,12 +20,12 @@ public class Dek {
 		FileIO f = new FileIO();
 		String c = f.readFile("cards.nx");
 		String[] eachcard = c.split("\n");
-		EditCard[] defaultcards = new EditCard[eachcard.length];
+		CardInfo[] defaultcards = new CardInfo[eachcard.length];
 
 		String[] tmp = new String[7];
 
 		for (int i = 0; i < eachcard.length - 1; i++) {
-			EditCard tmpcard = new EditCard();
+			CardInfo tmpcard = new CardInfo();
 			defaultcards[i] = tmpcard;
 
 			tmp = eachcard[i].split(SEPERATOR);
@@ -211,4 +210,39 @@ public class Dek {
 		dek[pick] = dekname + SEP + dekinfo[1];
 		cardstring = dekname + SEPERATOR + origin[1];
 	}
+
+	void infoToCard(Player player) {
+		int attack, defense, cost, index = 0;
+
+		String name, description;
+		Card card;
+		String dekinfo[] = dek[pick].split(SEP);
+		System.out.println(String.format("\n\r <%s의 카드목록 (%s/30)>", dekinfo[0],
+				dekinfo[1]));
+		for (int i = 1; i < cards.size() - 1; i++) {
+			String[] tmp = cards.get(i).split(SEP);
+			System.out.print("(" + (i) + ") ");
+			printCardByID(Integer.parseInt(tmp[0]));
+
+			attack = defaultcards[Integer.parseInt(tmp[0])].attack;
+			defense = defaultcards[Integer.parseInt(tmp[0])].defense;
+			cost = defaultcards[Integer.parseInt(tmp[0])].cost;
+			name = defaultcards[Integer.parseInt(tmp[0])].name;
+			description = defaultcards[Integer.parseInt(tmp[0])].description;
+
+			System.out.println(String.format(" %s장", tmp[1]));
+
+			for (int j = 0; j < Integer.parseInt(tmp[1]); j++) {
+				card = new Card(attack, defense, cost);
+				card.name = name;
+				card.description = description;
+				card.index = index;
+				index++;
+				player.dek.add(card);
+			}
+
+		}
+		System.out.println();
+	}
+
 }

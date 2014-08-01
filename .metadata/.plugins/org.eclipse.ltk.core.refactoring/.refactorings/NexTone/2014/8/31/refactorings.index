@@ -3,3 +3,20 @@
 1406857629995	Delete element
 1406858323974	Move compilation unit
 1406858343827	Move compilation unit
+1406858525058	Delete element
+1406858548741	Delete element
+1406858574924	Copy package
+1406858578578	Delete element
+1406858647176	Delete element
+1406863260821	Move compilation unit
+1406863263169	Move compilation unit
+1406863264774	Move compilation unit
+1406863267170	Delete element
+1406864105104	Extract method 'makeKing'
+1406864163033	Extract method 'makeKing'
+1406881474067	Extract method 'dekSelect'
+1406892408897	Extract method 'chooseFirstCard'
+1406892587153	Extract method 'printCard'
+1406901603578	Delete element
+1406902456006	Extract method 'intArrayintAsZero'
+1406904961955	Delete element

@@ -1,0 +1,11 @@
+
+
+public class GameStart {
+
+	
+	public void Gamestart(){
+		Dek d = new Dek();
+		Player p = new Player(dek);	
+	}
+	
+}
