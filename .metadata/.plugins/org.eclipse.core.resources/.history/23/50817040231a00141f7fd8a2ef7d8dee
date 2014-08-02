@@ -1,0 +1,32 @@
+import java.io.IOException;
+import java.util.ArrayList;
+
+
+public class Game {
+		int turn;
+		Player player;
+		Player emeny;
+		GetValue get = new GetValue();
+		
+		Game() throws IOException{
+			player = dekSelect(get);
+			player.gameSetting(get);
+		}
+		
+		private static Player dekSelect(GetValue get) throws IOException {
+			System.out.println("게임을 시작합니다.");
+			Player me = new Player();
+			Dek d = new Dek();
+			ArrayList<Integer> able = new ArrayList<Integer>();
+			able = d.showDekWithAvavility();
+			System.out.print(player.name+"덱을 선택해 주세요: ");
+			d.pick = get.Dek(able);
+			d.selectDek();
+			
+			d.infoToCard(me);
+			System.out.println("Press Enter to Start");
+			System.in.read();
+			return me;
+		}
+		
+}

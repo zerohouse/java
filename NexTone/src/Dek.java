@@ -233,7 +233,7 @@ public class Dek {
 			System.out.println(String.format(" %s장", tmp[1]));
 
 			for (int j = 0; j < Integer.parseInt(tmp[1]); j++) {
-				card = new Card(attack, defense, cost);
+				card = new Card(attack, defense, cost, player);
 				card.name = name;
 				card.description = description;
 				card.index = index;

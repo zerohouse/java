@@ -1,0 +1,13 @@
+
+public class Game {
+		int turn;
+		Player player;
+		Player emeny;
+		GetValue get = new GetValue();
+		
+		Game(){
+			player = dekSelect(get);
+			me.gameSetting(get);
+		}
+		
+}

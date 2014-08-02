@@ -17,17 +17,10 @@ public class Console {
 		int type = get.Int();
 
 		if (type == 1) {
-			Game game = new Game();
-			
-			Player me = dekSelect(get);
-			me.gameSetting(get);
-			System.out.println();
-			System.out.println();
-			System.out.println();
 			System.out.println("게임을 시작합니다.");
-			while (true) {
-				nextTurn(get, me);
-			}
+			Game game = new Game();
+			game.startTurn(get, game.player1);
+			
 		} else if (type == 2) {
 			dekActivity(get);
 
@@ -40,37 +33,8 @@ public class Console {
 
 	}
 
-	private static void nextTurn(GetValue get, Player me) {
-		me.newTurn();
-		System.out.println("나의 턴");
-		System.out.println("<상대의 카드>"); // printEnemySize();
-		System.out.println("3장");
-		System.out.println("<상대의 필드>");
-		// Ememy.printField();
-		me.printAvailable();
-		int num = -2;
-		while (num != -1) {
-			System.out.print("카드 번호를 입력해주세요: ");
-			num = get.Int() - 1;
-			me.useCard(num);
-			me.printAvailable();
-		}
-	}
 
-	private static Player dekSelect(GetValue get) throws IOException {
-		System.out.println("게임을 시작합니다.");
-		Dek d = new Dek();
-		ArrayList<Integer> able = new ArrayList<Integer>();
-		able = d.showDekWithAvavility();
-		System.out.print("덱을 선택해 주세요: ");
-		d.pick = get.Dek(able);
-		d.selectDek();
-		Player me = new Player();
-		d.infoToCard(me);
-		System.out.println("Press Enter to Start");
-		System.in.read();
-		return me;
-	}
+
 
 	private static void dekActivity(GetValue get) {
 

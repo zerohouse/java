@@ -1,0 +1,12 @@
+
+public class Game {
+		int turn;
+		Player player;
+		Player emeny;
+		
+		Game(){
+			Player me = dekSelect(get);
+			me.gameSetting(get);
+		}
+		
+}

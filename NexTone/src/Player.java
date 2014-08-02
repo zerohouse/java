@@ -5,28 +5,38 @@ import java.util.Stack;
 public class Player {
 	int mana, maxmana;
 	Card king;
-	Player enemy;
+	String name;
 	ArrayList<Card> field;
 	Stack<Card> dummy; // 카드 더미
 	ArrayList<Card> dek; // 전체 카드(초기화용도)
 	ArrayList<Card> hand; // 손에든 카드
 	ArrayList<Card> mycards; // 사용 가능한 전체 카드
 	Random random = new Random();
+	static GetValue get = new GetValue();
+	
+	Player enemy;
 
 	Player() {
 		dek = new ArrayList<Card>();
 		field = new ArrayList<Card>();
 		hand = new ArrayList<Card>();
 		dummy = new Stack<Card>();
-
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		System.out.print("새로운 Player의 이름을 입력해주세요: ");
+		name = get.String();
 		makeKing();
 	}
 
 	private void makeKing() {
-		king = new Card(0, 30, 0);
-		king.name = "Pl1";
+		king = new Card(0, 30, 0, this);
+		king.name = name;
 		king.attackable = 0;
 		king.maxattackable = 0;
+		king.defense=30;
+		king.maxdefense=30;
+		king.attackdefault=0;
 		field.add(king);
 	}
 
@@ -92,14 +102,10 @@ public class Player {
 	}
 
 	public void printAvailable() {
-		int i = 0;
-		System.out.println("<Field>");
-		for (Card card : field) {
-			i++;
-			System.out.println(String.format("(%d) %s (%d/%d) - %d/%d", i,
-					card.name, card.attack, card.defense, card.attackable,
-					card.maxattackable));
-		}
+		int i = printField();
+		
+		System.out.println();
+		
 		System.out.println("<Hand>");
 		for (Card card : hand) {
 			i++;
@@ -107,6 +113,18 @@ public class Player {
 					card.name, card.cost, card.attack, card.defense));
 		}
 		System.out.println(String.format("마나(%d/%d)", mana, maxmana));
+	}
+
+	public int printField() {
+		int i = 0;
+		System.out.println(String.format("<%s님의 Field>",name));
+		for (Card card : field) {
+			i++;
+			System.out.println(String.format("(%d) %s (%d/%d) - %d/%d", i,
+					card.name, card.attack, card.defense, card.attackable,
+					card.maxattackable));
+		}
+		return i;
 	}
 
 	public void printDummy() {
@@ -119,7 +137,7 @@ public class Player {
 		}
 	}
 
-	public void gameSetting(GetValue get) {
+	public void gameSetting() {
 		cardToHand(4);
 		printArrayList(hand);
 		System.out.print("바꾸실카드를 입력해주세요: ");
@@ -154,7 +172,10 @@ public class Player {
 	}
 
 	private void useFieldCard(int num) {
-
+		enemy.printField();
+		System.out.println("공격할 대상을 선택해 주세요: ");
+		int enemycard = get.Int()-1;
+		field.get(num).attackTarget(enemy.field.get(enemycard),num,enemycard);
 	}
 
 	private void useHandCard(int num) {
@@ -167,4 +188,6 @@ public class Player {
 		field.add(hand.get(num));
 		hand.remove(num);
 	}
+
+
 }

@@ -2,11 +2,12 @@ public class Card {
 	int index, attack, attackdefault, defense, maxdefense, type, cost,
 			attackable, maxattackable;
 	boolean active;
-	String name,description;
+	String name, description;
 
 	Player player;
 
-	public Card(int attack, int defense, int cost) {
+	public Card(int attack, int defense, int cost, Player player) {
+		this.player = player;
 		this.attack = attack;
 		this.attackdefault = attack;
 		this.defense = defense;
@@ -18,30 +19,30 @@ public class Card {
 		this.active = false;
 	}
 
-	void attackTarget(Card target) {
-		if(attackable<1){
-			System.out.println("공격 불가능합니다.");
+	void attackTarget(Card target, int thisnum, int targetnum) {
+		if (attackable < 1) {
+			System.err.println("선택한 대상은 공격 능력이 없습니다.");
 			return;
 		}
 		attackable--;
 		defense -= target.attack;
 		target.defense -= attack;
 		checkWinner();
-		checkAlive(target);
+		checkAlive(target, thisnum, targetnum);
 	}
 
-	private void checkAlive(Card target) {
-		if(defense<1){
-			//player.removeCard(this);
+	private void checkAlive(Card target, int thisnum, int targetnum) {
+		if (defense < 1) {
+			player.field.remove(thisnum);
 		}
-		if (target.defense<1){
-			//target.player.removeCard(target);
+		if (target.defense < 1) {
+			target.player.field.remove(targetnum);
 		}
-		
+
 	}
 
 	void checkWinner() {
-		if (player.king.defense <= 0 && player.enemy.king.defense <= 0) {
+		if (player.king.defense < 1 && player.enemy.king.defense < 1) {
 			System.out.println("draw");
 		} else if (player.king.defense <= 0) {
 			System.out.println("You Lose");

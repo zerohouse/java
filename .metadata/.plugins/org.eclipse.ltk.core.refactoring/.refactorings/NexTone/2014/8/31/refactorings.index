@@ -22,3 +22,6 @@
 1406904961955	Delete element
 1406948595153	Extract method 'start'
 1406958819192	Extract method 'nextTurn'
+1406970638703	Extract method 'printField'
+1406972003558	Extract method 'newLine'
+1406973056099	Extract method 'printAll'
