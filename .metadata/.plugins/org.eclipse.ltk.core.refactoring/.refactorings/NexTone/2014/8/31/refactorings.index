@@ -20,3 +20,5 @@
 1406901603578	Delete element
 1406902456006	Extract method 'intArrayintAsZero'
 1406904961955	Delete element
+1406948595153	Extract method 'start'
+1406958819192	Extract method 'nextTurn'

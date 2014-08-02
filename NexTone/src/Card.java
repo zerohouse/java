@@ -32,10 +32,10 @@ public class Card {
 
 	private void checkAlive(Card target) {
 		if(defense<1){
-			player.removeCard(this);
+			//player.removeCard(this);
 		}
 		if (target.defense<1){
-			target.player.removeCard(target);
+			//target.player.removeCard(target);
 		}
 		
 	}

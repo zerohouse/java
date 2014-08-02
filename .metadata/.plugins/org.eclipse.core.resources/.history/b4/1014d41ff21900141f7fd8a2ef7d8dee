@@ -1,0 +1,7 @@
+
+public class Game {
+
+		int turn;
+		Player user;
+		Player another;
+}
