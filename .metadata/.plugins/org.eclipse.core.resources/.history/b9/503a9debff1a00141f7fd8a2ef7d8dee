@@ -1,0 +1,66 @@
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.InetAddress;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.net.UnknownHostException;
+
+public class Net {
+
+	public String askServer() throws UnknownHostException, IOException {
+
+		System.out.println("서버에 연결중입니다.");
+		Socket socket = new Socket("192.168.0.17", 12423);
+
+		InputStream in = socket.getInputStream();
+		DataInputStream datain = new DataInputStream(in);
+		String response = datain.readUTF();
+		System.out.println("서버 정보 : " + response);
+
+		datain.close();
+		socket.close();
+		return response;
+	}
+
+	public void asServer() throws IOException {
+		@SuppressWarnings("resource")
+		ServerSocket serverSocket = new ServerSocket(12423);
+		System.out.println(InetAddress.getLocalHost().getHostAddress());
+		System.out.println("서버가 준비되었습니다.");
+
+		String serverinfo = "";
+
+		while (true) {
+
+			System.out.println("다른 사용자를 기다립니다.");
+			// 서버소켓은 클라이언트의 연결요청이 올 때까지 실행을 멈추고 계속 기다린다.
+			// 클라이언트의 연결요청이 오면 클라이언트 소켓과 통신할 새로운 소켓을 생성한다.
+			Socket socket = serverSocket.accept();
+			System.out.println(socket.getInetAddress()
+					+ " 로부터 연결요청이 들어왔습니다.");
+
+			// 소켓의 출력스트림을 얻는다.
+			OutputStream out = socket.getOutputStream();
+			DataOutputStream data = new DataOutputStream(out); // 기본형 단위로 처리하는
+																// 보조스트림
+
+			if (serverinfo == "") {
+				data.writeUTF("server");
+				serverinfo = socket.getInetAddress().toString();
+			} else {
+				data.writeUTF(serverinfo);
+				serverinfo = "";
+			}
+
+			// 원격 소켓(remote socket)에 데이터를 보낸다.
+
+			data.close();
+			socket.close();
+		} // while
+
+	}
+
+}

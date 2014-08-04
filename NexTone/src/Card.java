@@ -1,10 +1,13 @@
 public class Card {
+	static final String SEPERATOR = "@%@";
+	
 	int index, attack, attackdefault, defense, maxdefense, type, cost,
 			attackable, maxattackable;
 	boolean active;
 	String name, description;
 
 	Player player;
+	
 
 	public Card(int attack, int defense, int cost, Player player) {
 		this.player = player;
@@ -51,3 +54,4 @@ public class Card {
 		}
 	}
 }
+

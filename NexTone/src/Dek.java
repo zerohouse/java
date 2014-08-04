@@ -13,7 +13,6 @@ public class Dek {
 
 	public Dek() {
 		loadDefaultCards();
-		getDekList();
 	}
 
 	void loadDefaultCards() {
@@ -97,7 +96,7 @@ public class Dek {
 		f.saveFile(filename, "\n" + cardstring, false);
 	}
 
-	void selectDek() {
+	String selectDek() {
 		FileIO f = new FileIO();
 		cardstring = f.readFile(String.format("./dek/Dek%d.nx", pick + 1));
 		String[] tmp = cardstring.split(SEPERATOR);
@@ -105,7 +104,18 @@ public class Dek {
 		for (int i = 0; i < tmp.length; i++) {
 			cards.add(tmp[i]);
 		}
+		return cardstring;
 	}
+	
+	
+	void selectDek(String cardstring) {
+		String[] tmp = cardstring.split(SEPERATOR);
+		cards = new ArrayList<String>();
+		for (int i = 0; i < tmp.length; i++) {
+			cards.add(tmp[i]);
+		}
+	}
+	
 
 	void showDek() {
 		String dekinfo[] = dek[pick].split(SEP);
@@ -220,19 +230,19 @@ public class Dek {
 		System.out.println(String.format("\n\r <%s의 카드목록 (%s/30)>", dekinfo[0],
 				dekinfo[1]));
 		for (int i = 1; i < cards.size() - 1; i++) {
-			String[] tmp = cards.get(i).split(SEP);
+			String[] cardsplit = cards.get(i).split(SEP);
 			System.out.print("(" + (i) + ") ");
-			printCardByID(Integer.parseInt(tmp[0]));
+			printCardByID(Integer.parseInt(cardsplit[0]));
 
-			attack = defaultcards[Integer.parseInt(tmp[0])].attack;
-			defense = defaultcards[Integer.parseInt(tmp[0])].defense;
-			cost = defaultcards[Integer.parseInt(tmp[0])].cost;
-			name = defaultcards[Integer.parseInt(tmp[0])].name;
-			description = defaultcards[Integer.parseInt(tmp[0])].description;
+			attack = defaultcards[Integer.parseInt(cardsplit[0])].attack;
+			defense = defaultcards[Integer.parseInt(cardsplit[0])].defense;
+			cost = defaultcards[Integer.parseInt(cardsplit[0])].cost;
+			name = defaultcards[Integer.parseInt(cardsplit[0])].name;
+			description = defaultcards[Integer.parseInt(cardsplit[0])].description;
 
-			System.out.println(String.format(" %s장", tmp[1]));
+			System.out.println(String.format(" %s장", cardsplit[1]));
 
-			for (int j = 0; j < Integer.parseInt(tmp[1]); j++) {
+			for (int j = 0; j < Integer.parseInt(cardsplit[1]); j++) {
 				card = new Card(attack, defense, cost, player);
 				card.name = name;
 				card.description = description;
@@ -243,6 +253,32 @@ public class Dek {
 
 		}
 		System.out.println();
+	}
+	
+	void infoToCardWithoutPrint(Player player) {
+		int attack, defense, cost, index = 0;
+
+		String name, description;
+		Card card;
+		for (int i = 1; i < cards.size() - 1; i++) {
+			String[] cardsplit = cards.get(i).split(SEP);
+						
+			attack = defaultcards[Integer.parseInt(cardsplit[0])].attack;
+			defense = defaultcards[Integer.parseInt(cardsplit[0])].defense;
+			cost = defaultcards[Integer.parseInt(cardsplit[0])].cost;
+			name = defaultcards[Integer.parseInt(cardsplit[0])].name;
+			description = defaultcards[Integer.parseInt(cardsplit[0])].description;
+
+			for (int j = 0; j < Integer.parseInt(cardsplit[1]); j++) {
+				card = new Card(attack, defense, cost, player);
+				card.name = name;
+				card.description = description;
+				card.index = index;
+				index++;
+				player.dek.add(card);
+			}
+
+		}
 	}
 
 }

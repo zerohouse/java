@@ -1,0 +1,12 @@
+import java.io.IOException;
+import java.net.*;
+
+
+public class ServerSocket {
+
+	public static void main(String[] args) throws IOException{
+		int port = 2011;
+		ServerSocket server = new ServerSocket(port);
+		
+	}
+}

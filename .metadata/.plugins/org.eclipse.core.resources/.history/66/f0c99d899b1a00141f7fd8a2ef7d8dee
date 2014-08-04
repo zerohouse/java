@@ -1,0 +1,26 @@
+import java.io.DataInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.Socket;
+import java.net.UnknownHostException;
+
+
+public class Net {
+
+	public int getPort() throws UnknownHostException, IOException{
+        String serverIP = "192.168.0.17"; // 서버 아이피.
+        System.out.println("서버에 연결중입니다. 서버 IP : " + serverIP);
+         
+        Socket socket = new Socket(serverIP, 12423);
+         
+        InputStream in = socket.getInputStream();
+        DataInputStream datain = new DataInputStream(in);  
+         
+        System.out.println("할당받은 포트번호 : " + datain.readInt());
+        System.out.println("연결을 종료합니다.");
+         
+        datain.close();
+        socket.close();
+        return datain.readInt();
+	}
+}

@@ -1,0 +1,34 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+
+public class Server {
+
+	public static void main(String[] args) throws IOException {
+		ServerSocket server = new ServerSocket(2011);
+		System.out.println("Waiting...");
+		
+		Socket client = server.accept();
+		
+		BufferedReader reader = new BufferedReader(
+				new InputStreamReader(client.getInputStream()));
+		
+		PrintWriter writer = new PrintWriter(client.getOutputStream(),true);
+		String contents = reader.readLine();
+		System.out.println(contents);
+		
+		writer.println(contents);
+		
+		reader.close();
+		writer.close();
+		server.close();
+		client.close();
+		
+		
+	}
+
+}

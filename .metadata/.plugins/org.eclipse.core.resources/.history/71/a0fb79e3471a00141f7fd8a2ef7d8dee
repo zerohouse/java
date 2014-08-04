@@ -1,0 +1,9 @@
+
+public class Server {
+
+	public static void main(String[] args) {
+		ServerSocket server = new ServerSocket(2011);
+		
+	}
+
+}

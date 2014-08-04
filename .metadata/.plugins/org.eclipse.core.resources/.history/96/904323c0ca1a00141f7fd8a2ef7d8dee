@@ -1,0 +1,62 @@
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.Socket;
+import java.net.UnknownHostException;
+
+public class Net {
+	final static String serverIP = "192.168.0.17";
+	GetValue get = new GetValue();
+
+	public int getPort() throws UnknownHostException, IOException {
+
+		System.out.println("서버에 연결중입니다. 서버 IP : " + serverIP);
+
+		Socket socket = new Socket(serverIP, 12423);
+		InputStream in = socket.getInputStream();
+		DataInputStream datain = new DataInputStream(in);
+
+		OutputStream out = socket.getOutputStream();
+		DataOutputStream dataout = new DataOutputStream(out);
+
+		System.out.println("할당받은 포트번호 : " + datain.readInt());
+
+		int input = 0;
+
+		while (input != -1) {
+			input = get.Int();
+			dataout.writeInt(input);
+			System.out.println("서버전송: " + input);
+			System.out.println(datain.readInt());
+		}
+
+		// datain.close();
+		// socket.close();
+		return datain.readInt();
+	}
+
+	public void connectServer(int port) throws UnknownHostException,
+			IOException {
+		System.out.println("할당받은 포트로 서버에 연결중입니다. 포트: " + port);
+
+		Socket socket = new Socket(serverIP, port);
+		InputStream in = socket.getInputStream();
+		DataInputStream datain = new DataInputStream(in);
+
+		OutputStream out = socket.getOutputStream();
+		DataOutputStream data = new DataOutputStream(out);
+
+		int input = 0;
+		while (input != -1) {
+			input = get.Int();
+			data.writeInt(input);
+			System.out.println("서버전송: " + input);
+			System.out.println(datain.readInt());
+		}
+
+		datain.close();
+		socket.close();
+	}
+}

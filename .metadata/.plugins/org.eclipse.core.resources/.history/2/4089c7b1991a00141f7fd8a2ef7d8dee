@@ -1,0 +1,12 @@
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.ServerSocket;
+
+public class OpenNewPort {
+
+	public void openNew(int port) throws IOException {
+		ServerSocket newGame = new ServerSocket(12423);
+		System.out.println(InetAddress.getLocalHost().getHostAddress());
+		System.out.println("새로운 포트를 열었습니다. Number:"+port);
+	}
+}

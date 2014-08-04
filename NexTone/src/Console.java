@@ -1,8 +1,8 @@
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Random;
-
 public class Console {
+
+	static final String SEPERATOR = "@%@";
+	static final String SEP = "#";
+	static final String SEPS = "::";
 
 	public static void main(String[] args) throws Exception {
 
@@ -13,28 +13,67 @@ public class Console {
 		System.out.println("1. 게임을 시작한다.");
 		System.out.println("2. 덱을 구성한다.");
 		System.out.println("3. 카드를 만든다.");
+		System.out.println("4. 멀티플레이");
 
 		int type = get.Int();
 
 		if (type == 1) {
 			System.out.println("게임을 시작합니다.");
 			Game game = new Game();
-			game.startTurn(get, game.player1);
-			
+			game.singleGame();
+			game.startTurn(game.me);
+
 		} else if (type == 2) {
 			dekActivity(get);
 
 		} else if (type == 3) {
 			newCard(get, cardinfo);
 
+		} else if (type == 4) {
+			String initsetting;
+			Net net = new Net();
+			String[] setting;
+
+			String ip = net.askServer();
+			if (ip.equals("server")) {
+
+				initsetting = net.multiGame();
+				net.asServer(initsetting);
+
+			} else {
+				initsetting = net.multiGame();
+				net.asClient(ip.replace("/", ""), initsetting);
+
+			}
+
+			Thread.sleep(500);
+			setting = net.receiver.initstring.split(SEPS);
+			net.you = new Player();
+			net.you.name = setting[0];
+			Dek d = new Dek();
+			d.selectDek(setting[1]);
+			d.infoToCardWithoutPrint(net.you);
+			net.you.cardToHand(setting[2]);
+			net.you.dekToDummy(setting[3]);
+			net.you.enemy = net.me;
+			net.me.enemy = net.you;
+
+			if (ip.equals("server")) {
+				net.me.myturn = true;
+			} else {
+				net.me.myturn = false;
+			}
+
+			net.startTurn();
+
+			System.out.println(ip);
+
 		} else {
-			System.out.println("종료합니다.");
+			System.out.println("1. 상대의 접속을 기다린다.");
+			System.out.println("2. 상대에게 접속한다.");
 		}
 
 	}
-
-
-
 
 	private static void dekActivity(GetValue get) {
 

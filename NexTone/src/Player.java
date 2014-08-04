@@ -3,6 +3,12 @@ import java.util.Random;
 import java.util.Stack;
 
 public class Player {
+
+	static final String SEPERATOR = "@%@";
+	static final String SEP = "#";
+	static final String SEPS = "::";
+
+	boolean myturn;
 	int mana, maxmana;
 	Card king;
 	String name;
@@ -13,7 +19,7 @@ public class Player {
 	ArrayList<Card> mycards; // 사용 가능한 전체 카드
 	Random random = new Random();
 	static GetValue get = new GetValue();
-	
+
 	Player enemy;
 
 	Player() {
@@ -21,9 +27,9 @@ public class Player {
 		field = new ArrayList<Card>();
 		hand = new ArrayList<Card>();
 		dummy = new Stack<Card>();
-		System.out.println();
-		System.out.println();
-		System.out.println();
+	}
+
+	public void GetPlayerName() {
 		System.out.print("새로운 Player의 이름을 입력해주세요: ");
 		name = get.String();
 		makeKing();
@@ -34,9 +40,9 @@ public class Player {
 		king.name = name;
 		king.attackable = 0;
 		king.maxattackable = 0;
-		king.defense=30;
-		king.maxdefense=30;
-		king.attackdefault=0;
+		king.defense = 30;
+		king.maxdefense = 30;
+		king.attackdefault = 0;
 		field.add(king);
 	}
 
@@ -54,13 +60,22 @@ public class Player {
 	}
 
 	public void cardToHand(int size) {
-
 		int ran = 0;
 		for (int i = 0; i < size; i++) {
 			do {
 				ran = random.nextInt(29);
 			} while (hasSameElement(hand, ran));
 			hand.add(dek.get(ran));
+		}
+	}
+
+	public void cardToHand(String handstring) {
+		String[] handstrings = handstring.split(SEP);
+		for (String s : handstrings) {
+			try {
+				hand.add(dek.get(Integer.parseInt(s)));
+			} catch (Exception e) {
+			}
 		}
 	}
 
@@ -103,9 +118,9 @@ public class Player {
 
 	public void printAvailable() {
 		int i = printField();
-		
+
 		System.out.println();
-		
+
 		System.out.println("<Hand>");
 		for (Card card : hand) {
 			i++;
@@ -117,7 +132,7 @@ public class Player {
 
 	public int printField() {
 		int i = 0;
-		System.out.println(String.format("<%s님의 Field>",name));
+		System.out.println(String.format("<%s님의 Field>", name));
 		for (Card card : field) {
 			i++;
 			System.out.println(String.format("(%d) %s (%d/%d) - %d/%d", i,
@@ -137,28 +152,57 @@ public class Player {
 		}
 	}
 
-	public void gameSetting() {
+	public String gameSetting() {
 		cardToHand(4);
 		printArrayList(hand);
 		System.out.print("바꾸실카드를 입력해주세요: ");
 		changeFirstCard(get.IntArray());
 		printArrayList(hand);
-		dekToDummy();
+		String handstring = handToString();
+		String dekstring = dekToDummy();
+		return handstring + SEPS + dekstring;
 	}
 
-	public void dekToDummy() {
+	public String handToString() {
+		String res = "";
+		for (Card card : hand) {
+			res += card.index + SEP;
+		}
+		return res;
+	}
+
+	public String dekToDummy() {
 		for (Card card : hand) {
 			removeCardByindex(card.index, dek);
 		}
 		int size = dek.size();
 		int ran;
 		Card card;
-
+		String randomstring = "";
 		for (int i = 0; i < size - 1; i++) {
 			ran = random.nextInt(dek.size() - 1);
+			randomstring += ran + SEP;
 			card = dek.get(ran);
 			dummy.push(card);
 			dek.remove(ran);
+		}
+		dummy.push(dek.get(0));
+		return randomstring;
+	}
+
+	public void dekToDummy(String dummystring) {
+		for (Card card : hand) {
+			removeCardByindex(card.index, dek);
+		}
+
+		String[] dummystrings = dummystring.split(SEP);
+
+		for (String s : dummystrings) {
+			try {
+				dummy.push(dek.get(Integer.parseInt(s)));
+				dek.remove(Integer.parseInt(s));
+			} catch (Exception e) {
+			}
 		}
 		dummy.push(dek.get(0));
 	}
@@ -174,8 +218,8 @@ public class Player {
 	private void useFieldCard(int num) {
 		enemy.printField();
 		System.out.println("공격할 대상을 선택해 주세요: ");
-		int enemycard = get.Int()-1;
-		field.get(num).attackTarget(enemy.field.get(enemycard),num,enemycard);
+		int enemycard = get.Int() - 1;
+		field.get(num).attackTarget(enemy.field.get(enemycard), num, enemycard);
 	}
 
 	private void useHandCard(int num) {
@@ -188,6 +232,5 @@ public class Player {
 		field.add(hand.get(num));
 		hand.remove(num);
 	}
-
 
 }

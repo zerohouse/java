@@ -1,0 +1,13 @@
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+public class OpenNewPort {
+
+	public void openNew(int port) throws IOException {
+		ServerSocket newGame = new ServerSocket(port);
+		System.out.println("새로운 포트를 열었습니다. Number:"+port);
+		Socket socket = newGame.accept();
+        System.out.println(getTime() + socket.getInetAddress() + " 로부터 연결요청이 들어왔습니다.");
+	}
+}
