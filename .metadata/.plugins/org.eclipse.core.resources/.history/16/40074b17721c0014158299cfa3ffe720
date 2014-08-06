@@ -1,0 +1,48 @@
+import java.io.DataInputStream;
+import java.io.IOException;
+import java.net.Socket;
+ 
+public class Receiver extends Thread {
+    Socket socket;
+    DataInputStream in;
+    boolean server;
+    
+    Game game;
+ 
+    Receiver(Socket socket, boolean isserver) {
+        this.socket = socket;
+        this.server = isserver;
+        try {
+            in = new DataInputStream(socket.getInputStream());
+        } catch (IOException e) {
+        }
+    }
+ 
+    @Override
+    public void run() {
+    	
+    	if (server){
+    		game = new Game();
+			try {
+				game.multiGame();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+    		
+    	}
+    	
+    	
+    	
+        while (in != null) {
+            try {            	
+                accept(in.readUTF());
+            } catch (IOException e) {
+            }
+        }
+    }
+
+	private void accept(String readUTF) {
+		String[] type = new String[2];
+		
+	}
+}

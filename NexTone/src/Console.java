@@ -1,8 +1,6 @@
 public class Console {
 
-	static final String SEPERATOR = "@%@";
-	static final String SEP = "#";
-	static final String SEPS = "::";
+
 
 	public static void main(String[] args) throws Exception {
 
@@ -21,7 +19,7 @@ public class Console {
 			System.out.println("게임을 시작합니다.");
 			Game game = new Game();
 			game.singleGame();
-			game.startTurn(game.me);
+			game.me.startTurn();
 
 		} else if (type == 2) {
 			dekActivity(get);
@@ -30,24 +28,17 @@ public class Console {
 			newCard(get, cardinfo);
 
 		} else if (type == 4) {
-			String initsetting;
+			
 			Net net = new Net();
-			String[] setting;
 
 			String ip = net.askServer();
 			if (ip.equals("server")) {
-
-				initsetting = net.multiGame();
-				net.asServer(initsetting);
-
+				net.asServer();
 			} else {
-				initsetting = net.multiGame();
-				net.asClient(ip.replace("/", ""), initsetting);
-
+				net.asClient(ip.replace("/", ""));
 			}
 
-			Thread.sleep(500);
-			setting = net.receiver.initstring.split(SEPS);
+/*			setting = net.receiver.initstring.split(SEPS);
 			net.you = new Player();
 			net.you.name = setting[0];
 			Dek d = new Dek();
@@ -57,20 +48,14 @@ public class Console {
 			net.you.dekToDummy(setting[3]);
 			net.you.enemy = net.me;
 			net.me.enemy = net.you;
+			System.out.println(net.you.name);*/
+			   
+ 
 
-			if (ip.equals("server")) {
-				net.me.myturn = true;
-			} else {
-				net.me.myturn = false;
-			}
 
-			net.startTurn();
-
-			System.out.println(ip);
 
 		} else {
-			System.out.println("1. 상대의 접속을 기다린다.");
-			System.out.println("2. 상대에게 접속한다.");
+			System.out.println("종료합니다.");
 		}
 
 	}

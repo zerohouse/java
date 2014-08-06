@@ -1,0 +1,24 @@
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.Socket;
+
+public class Sender {
+	Socket socket;
+	DataOutputStream out;
+
+	Sender(Socket socket) {
+		this.socket = socket;
+		try {
+			out = new DataOutputStream(socket.getOutputStream());
+		} catch (Exception e) {
+		}
+	}
+
+	public void out(String s) {
+		try {
+			out.writeUTF(s);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+}

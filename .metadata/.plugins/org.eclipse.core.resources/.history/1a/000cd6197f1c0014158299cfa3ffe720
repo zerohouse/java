@@ -1,0 +1,37 @@
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.Socket;
+
+public class Client extends Thread {
+
+	static final String SEPERATOR = "@%@";
+	static final String SEP = "#";
+	static final String SEPS = "::";
+
+	Socket socket;
+	DataInputStream in;
+	DataOutputStream out;
+	
+	
+	boolean server;
+	Client(Socket socket) {
+		this.socket = socket;
+		try {
+			in = new DataInputStream(socket.getInputStream());
+		} catch (IOException e) {
+		}
+	}
+
+	@Override
+	public void run() {
+		while (in != null) {
+			try {
+				System.out.println(in.readUTF());
+			} catch (IOException e) {
+			}
+		}
+	}
+
+	
+}

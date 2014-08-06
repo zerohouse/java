@@ -1,0 +1,32 @@
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.Socket;
+
+public class initSetting extends Thread {
+	Socket socket;
+	DataOutputStream out;
+
+	initSetting(Socket socket, String initsetting) {
+		this.socket = socket;
+		this.initstring = initsetting;
+		try {
+			out = new DataOutputStream(socket.getOutputStream());
+		} catch (Exception e) {
+		}
+	}
+
+	@Override
+	public void run() {
+		
+		System.out.println("게임을 시작합니다.");
+		Game client = new Game();
+		String initsetting = 0+"@##"+client.multiGame();
+
+		try {
+			out.writeUTF(initstring);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+}

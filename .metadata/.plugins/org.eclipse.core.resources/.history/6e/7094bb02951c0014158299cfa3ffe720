@@ -1,0 +1,52 @@
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.Socket;
+
+public class Client extends Thread {
+
+	static final String SEPERATOR = "@%@";
+	static final String SEP = "#";
+	static final String SEPS = "::";
+
+	Socket socket;
+	DataInputStream in;
+	DataOutputStream out;
+	
+	
+	Client(Socket socket) {
+		this.socket = socket;
+		try {
+			in = new DataInputStream(socket.getInputStream());
+			out = new DataOutputStream(socket.getOutputStream());
+		} catch (IOException e) {
+		}
+	}
+
+	@Override
+	public void run() {
+		try {
+			Game client = new Game();
+			String initsetting = client.multiGame();
+			out.writeUTF("0@##"+initsetting);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		
+		while (in != null) {
+			try {
+				accept(in.readUTF());
+			} catch (IOException e) {
+			}
+		}
+	}
+	
+	private void accept(String readUTF) {
+		String[] type = readUTF.split("@##"); // type 0 => 초기화
+		if (Integer.parseInt(type[0])==1){
+			
+		}
+	}
+
+	
+}

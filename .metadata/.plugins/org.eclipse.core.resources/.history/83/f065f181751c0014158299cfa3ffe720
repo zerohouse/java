@@ -1,0 +1,50 @@
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.Socket;
+
+public class initSetting extends Thread {
+	String initstring;
+	Socket socket;
+	DataOutputStream out;
+	boolean server;
+
+	initSetting(Socket socket) {
+		this.socket = socket;
+		initstring = "";
+		server = true;
+		try {
+			out = new DataOutputStream(socket.getOutputStream());
+		} catch (Exception e) {
+		}
+	}
+
+	initSetting(Socket socket, String initsetting) {
+		server = false;
+		this.socket = socket;
+		this.initstring = initsetting;
+		try {
+			out = new DataOutputStream(socket.getOutputStream());
+		} catch (Exception e) {
+		}
+	}
+
+	@Override
+	public void run() {
+		GetValue get = new GetValue();
+
+		if (!initstring.isEmpty()) {
+			try {
+				out.writeUTF(initstring);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+/*		while (out != null) {
+			try {
+				out.writeUTF(scanner.nextLine());
+			} catch (IOException e) {
+			}
+		}*/
+	}
+}

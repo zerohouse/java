@@ -1,0 +1,84 @@
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.Socket;
+
+public class Client extends Thread {
+
+	static final String SEPERATOR = "@%@";
+	static final String SEP = "#";
+	static final String SEPS = "::";
+
+	GetValue get = new GetValue();
+	
+	Socket socket;
+	DataInputStream in;
+	DataOutputStream out;
+
+	Client(Socket socket) {
+		this.socket = socket;
+		try {
+			in = new DataInputStream(socket.getInputStream());
+			out = new DataOutputStream(socket.getOutputStream());
+		} catch (IOException e) {
+		}
+	}
+
+	@Override
+	public void run() {
+		try {
+			Game client = new Game();
+			String initsetting = client.multiGame();
+			out.writeUTF("0@##" + initsetting);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+
+		while (in != null) {
+			try {
+				accept(in.readUTF());
+			} catch (IOException e) {
+			}
+		}
+	}
+
+	private void accept(String readUTF) {
+		String[] type = readUTF.split("@##"); // type 0 => 초기화
+		if (Integer.parseInt(type[0]) == 1) {
+			System.out.println(type[1]);
+		} else if (Integer.parseInt(type[0]) == 2) {
+			Myturn();
+		}
+	}
+
+	private void Myturn() {
+		int num = -2;
+		while (num != -1) {
+			System.out.println("<나의 턴>");
+			System.out.print("사용할 카드 번호를 입력해주세요: ");
+			num = get.Int() - 1;
+			if (num == -1) {
+				break;
+			}
+			useCard(num);
+		}
+		yourTurn();
+	}
+
+	private void yourTurn() {
+		try {
+			out.writeUTF("6@##");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}		
+		
+	}
+
+	private void useCard(int num) {
+		try {
+			out.writeUTF("5@##"+num);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}		
+	}
+}

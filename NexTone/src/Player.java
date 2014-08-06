@@ -8,7 +8,7 @@ public class Player {
 	static final String SEP = "#";
 	static final String SEPS = "::";
 
-	boolean myturn;
+	int attacker;
 	int mana, maxmana;
 	Card king;
 	String name;
@@ -35,7 +35,7 @@ public class Player {
 		makeKing();
 	}
 
-	private void makeKing() {
+	void makeKing() {
 		king = new Card(0, 30, 0, this);
 		king.name = name;
 		king.attackable = 0;
@@ -130,6 +130,28 @@ public class Player {
 		System.out.println(String.format("마나(%d/%d)", mana, maxmana));
 	}
 
+	public String availableToString() {
+		String result = "";
+		int i = 0;
+		result += String.format("<%s님의 Field>", name) + "\n";
+		for (Card card : field) {
+			i++;
+			result += String.format("(%d) %s (%d/%d) - %d/%d", i, card.name,
+					card.attack, card.defense, card.attackable,
+					card.maxattackable)
+					+ "\n";
+		}
+
+		result += "\n<Hand>\n";
+		for (Card card : hand) {
+			i++;
+			result += String.format("(%d) %s[%d] (%d/%d)", i, card.name,
+					card.cost, card.attack, card.defense) + "\n";
+		}
+		result += String.format("마나(%d/%d)", mana, maxmana) + "\n";
+		return result;
+	}
+
 	public int printField() {
 		int i = 0;
 		System.out.println(String.format("<%s님의 Field>", name));
@@ -140,6 +162,20 @@ public class Player {
 					card.maxattackable));
 		}
 		return i;
+	}
+
+	public String fieldtoString() {
+		String result = "";
+		int i = 0;
+		result += String.format("<%s님의 Field>", name) + "\n";
+		for (Card card : field) {
+			i++;
+			result += String.format("(%d) %s (%d/%d) - %d/%d", i, card.name,
+					card.attack, card.defense, card.attackable,
+					card.maxattackable)
+					+ "\n";
+		}
+		return result;
 	}
 
 	public void printDummy() {
@@ -207,30 +243,80 @@ public class Player {
 		dummy.push(dek.get(0));
 	}
 
-	public void useCard(int num) {
+	public String useCard(int num) {
+		String message = "";
 		if (num < field.size()) {
-			useFieldCard(num);
-			return;
+			this.attacker = num;
+			return "attack";
 		}
-		useHandCard(num - field.size());
-	}
-
-	private void useFieldCard(int num) {
-		enemy.printField();
-		System.out.println("공격할 대상을 선택해 주세요: ");
-		int enemycard = get.Int() - 1;
-		field.get(num).attackTarget(enemy.field.get(enemycard), num, enemycard);
-	}
-
-	private void useHandCard(int num) {
+		num -= field.size();
 		if (hand.get(num).cost > mana) {
-			System.err.println("마나가 부족합니다.");
-			return;
+			message += "마나가 부족합니다.\n";
+			return message;
 		}
+		useHandCard(num);
+		return "Done";
+	}
+
+	public void attackTarget(int enemycard) {
+		field.get(attacker).attackTarget(enemy.field.get(enemycard), attacker, enemycard);
+	}
+
+	public void useHandCard(int num) {
 		mana -= hand.get(num).cost;
 		hand.get(num).maxattackable = 1;
 		field.add(hand.get(num));
 		hand.remove(num);
+	}
+
+	void printAll() {
+		newLine();
+
+		System.out.print(String.format("%s님", enemy.name));
+		System.out.println(String.format("은 핸드에 카드를 %d장 들고 있습니다.",
+				enemy.hand.size()));
+		newLine();
+
+		enemy.printField();
+		newLine();
+		printAvailable();
+		newLine();
+	}
+
+	String toStringAll() {
+		String result = "";
+		result += "\n";
+
+		result += String.format("%s님", enemy.name);
+		result += String.format("은 핸드에 카드를 %d장 들고 있습니다.", enemy.hand.size())
+				+ "\n";
+		;
+		result += "\n";
+		result += enemy.fieldtoString();
+		result += "\n";
+		result += availableToString();
+		result += "\n";
+		return result;
+	}
+
+	private void newLine() {
+		System.out.println();
+	}
+
+	void startTurn() {
+		newTurn();
+		printAll();
+		int num = -2;
+		while (num != -1) {
+			System.out.print("카드 번호를 입력해주세요: ");
+			num = get.Int() - 1;
+			if (num == -1) {
+				break;
+			}
+			useCard(num);
+			printAll();
+		}
+		enemy.startTurn();
 	}
 
 }

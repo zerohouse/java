@@ -30,7 +30,6 @@ public class Card {
 		attackable--;
 		defense -= target.attack;
 		target.defense -= attack;
-		checkWinner();
 		checkAlive(target, thisnum, targetnum);
 	}
 
@@ -42,16 +41,6 @@ public class Card {
 			target.player.field.remove(targetnum);
 		}
 
-	}
-
-	void checkWinner() {
-		if (player.king.defense < 1 && player.enemy.king.defense < 1) {
-			System.out.println("draw");
-		} else if (player.king.defense <= 0) {
-			System.out.println("You Lose");
-		} else if (player.enemy.king.defense <= 0) {
-			System.out.println("You Win");
-		}
 	}
 }
 

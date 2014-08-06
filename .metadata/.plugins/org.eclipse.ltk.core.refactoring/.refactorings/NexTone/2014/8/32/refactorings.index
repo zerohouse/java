@@ -1,3 +1,12 @@
 1407064703246	Delete element
 1407064818666	Delete element
 1407120910624	Extract method 'GetPlayerName'
+1407206929667	Delete element
+1407215105374	Delete element
+1407222668671	Delete element
+1407225098181	Delete element
+1407225900408	Delete element
+1407236680782	Delete element
+1407238661480	Extract method 'refreshClient'
+1407290543748	Extract method 'useYourCard'
+1407290901602	Extract method 'yourTurnNotEnd'
