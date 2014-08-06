@@ -1,0 +1,21 @@
+import java.util.ArrayList;
+
+
+public class Sadari {
+	ArrayList<Point> points;
+	
+	Sadari(){
+		points = new ArrayList<Point>();
+	}
+	
+	public Point moveMarker(Point marker){
+		for (Point point : points){
+			if (point.row == marker.row && point.column == marker.column){
+				
+				return point;
+			}
+		}
+		
+	}
+	
+}

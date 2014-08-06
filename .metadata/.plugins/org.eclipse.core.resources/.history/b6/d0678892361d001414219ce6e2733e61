@@ -1,0 +1,17 @@
+import java.util.Scanner;
+
+
+public class GetValue {
+	
+	Scanner scan = new Scanner(System.in);
+	
+	int Int(){
+		while (!scan.hasNextInt()) {
+			scan.next(); // 잘못된 입력 값 버리기
+			System.err.print("에러! 다시 입력바랍니다: ");
+		}
+		int value = scan.nextInt();
+		return value;
+	}
+	
+}

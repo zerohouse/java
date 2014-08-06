@@ -259,7 +259,8 @@ public class Player {
 	}
 
 	public void attackTarget(int enemycard) {
-		field.get(attacker).attackTarget(enemy.field.get(enemycard), attacker, enemycard);
+		field.get(attacker).attackTarget(enemy.field.get(enemycard), attacker,
+				enemycard);
 	}
 
 	public void useHandCard(int num) {
@@ -290,7 +291,6 @@ public class Player {
 		result += String.format("%s님", enemy.name);
 		result += String.format("은 핸드에 카드를 %d장 들고 있습니다.", enemy.hand.size())
 				+ "\n";
-		;
 		result += "\n";
 		result += enemy.fieldtoString();
 		result += "\n";

@@ -1,0 +1,91 @@
+import java.util.Random;
+
+public class Sadari
+
+{
+
+	Point[][] points;
+
+	Sadari(int row, int column) {
+		points = new Point[row + 1][column];
+		marker = new Point(0, 0);
+	}
+
+	boolean addLine(int row, int column) {
+		column--;
+		row--;
+		if (!points[row][column].occupy) {
+			points[row][column].column = 1;
+			points[row][column + 1].column = -1;
+			points[row][column].occupy();
+			points[row][column + 1].occupy();
+			return true;
+		}
+		return false;
+	}
+
+	void randomLine(int size) {
+		int randomlines = 0, row, column;
+		Random random = new Random();
+
+		while (randomlines < size) {
+			row = random.nextInt(points.length - 1);
+			column = random.nextInt(points[0].length - 1);
+			if (addLine(row, column)) {
+				randomlines++;
+			}
+		}
+	}
+
+	Point sadariTagi(Point start) {
+		Point.row += points[row][column].row;
+
+	}
+
+	int sadariTagi(int start) {
+
+		int row = 0;
+		int column = start - 1;
+		int r0, c0;
+		if (c >= sadaric[0].length || c < 0) {
+			System.out.println("없는 번호를 골랐습니다.");
+			return 0;
+		}
+		printPath(r, c);
+		while (r + 1 < sadaric.length) {
+			c0 = sadaric[r][c];
+			r0 = sadarir[r][c];
+			c = c + c0;
+			r = r + 1 + r0;
+			printPath(r, c);
+		}
+		return c + 1;
+	}
+
+	void printPath(int r, int c) {
+		for (int j = 0; j < sadaric[0].length; j++) {
+			if (c == j)
+				System.out.print("*");
+			else
+				System.out.print("|");
+			if (sadaric[r][j] == 1)
+				System.out.print("__");
+			else
+				System.out.print("  ");
+		}
+		System.out.println("");
+	}
+
+	void printSadari() {
+		for (int i = 0; i < sadaric.length; i++) {
+			for (int j = 0; j < sadaric[i].length; j++) {
+				System.out.print("|");
+				if (sadaric[i][j] == 1) {
+					System.out.print("__");
+				} else
+					System.out.print("  ");
+			}
+			System.out.println("");
+		}
+	}
+}

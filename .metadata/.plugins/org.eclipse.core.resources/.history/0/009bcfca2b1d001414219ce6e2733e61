@@ -1,0 +1,8 @@
+import java.util.HashMap;
+
+
+public class Sadari {
+	HashMap<Point, Point> map;
+	
+	
+}

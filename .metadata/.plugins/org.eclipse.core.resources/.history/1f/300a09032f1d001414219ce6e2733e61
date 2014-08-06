@@ -1,0 +1,23 @@
+import java.util.ArrayList;
+
+
+public class Sadari {
+	ArrayList<Point> points;
+	
+	Sadari(){
+		points = new ArrayList<Point>();
+	}
+	
+	public Point getValue(int row, int column){
+		
+		for (Point point : points){
+			if (point.row = row && point.column = column){
+				return point;
+			}
+			
+		}
+		
+		return point;
+	}
+	
+}

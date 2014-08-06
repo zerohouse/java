@@ -1,0 +1,4 @@
+
+public class Sadari {
+	HashMap<Integer, Integer> map;
+}

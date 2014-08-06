@@ -1,0 +1,56 @@
+import java.util.Random;
+
+public class Sadari
+
+{
+	Point[][] points;
+
+	Sadari(int row, int column) {
+		points = new Point[row + 1][column];
+		for (Point point : points){
+			
+		}
+	}
+
+	boolean addLine(int row, int column) {
+		if (points.length < row) {
+			return false;
+		}
+		if (points[0].length < column) {
+			return false;
+		}
+		
+		column--;
+		row--;
+		
+		if (!points[row][column].occupy) {
+			points[row][column].column = 1;
+			points[row][column + 1].column = -1;
+			points[row][column].occupy();
+			points[row][column + 1].occupy();
+			return true;
+		}
+		return false;
+	}
+
+	void randomLine(int size) {
+		int randomlines = 0, row, column;
+		Random random = new Random();
+
+		while (randomlines < size) {
+			row = random.nextInt(points.length - 1);
+			column = random.nextInt(points[0].length - 1);
+			if (addLine(row, column)) {
+				randomlines++;
+			}
+		}
+	}
+
+	Point sadariTagi(Point start) {
+		int row = start.row;
+		int column = start.column;
+		start.row += points[row][column].row;
+		start.column += points[row][column].column;
+		return start;
+	}
+}

@@ -1,0 +1,11 @@
+import java.util.ArrayList;
+
+
+public class Sadari {
+	ArrayList<Point> points;
+	
+	Sadari(){
+		points = new ArrayList<Point>();
+	}
+	
+}

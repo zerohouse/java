@@ -1,0 +1,8 @@
+
+public class Point {
+	int column, row;
+	Point(int column, int row){
+		this.column = column;
+		this.row = row;
+	}
+}

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="SadariTest" project="SADARITAGI ver2" tests="3" started="3" failures="0" errors="0" ignored="0">
+  <testsuite name="SadariTest" time="0.003">
+    <testcase name="testAddLine" classname="SadariTest" time="0.003"/>
+    <testcase name="testcolumnRangeCheck" classname="SadariTest" time="0.0"/>
+    <testcase name="testrowRangeCheck" classname="SadariTest" time="0.0"/>
+  </testsuite>
+</testrun>

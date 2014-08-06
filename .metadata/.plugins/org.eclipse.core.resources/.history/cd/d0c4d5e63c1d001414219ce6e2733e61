@@ -1,0 +1,35 @@
+import junit.framework.TestCase;
+
+
+public class SadariTest extends TestCase {
+	
+	Sadari sadari;
+
+	protected void setUp() throws Exception {
+		super.setUp();
+		sadari = new Sadari(5,8);
+		
+	}
+
+	protected void tearDown() throws Exception {
+		super.tearDown();
+	}
+
+	public void testAddLine() {
+		assertEquals(true, sadari.addLine(6,6));
+	}
+	
+	public void testrowRangeCheck() {
+		assertEquals(true, sadari.rowRangeCheck(4));
+	}
+	
+	public void testcolumnRangeCheck() {
+		assertEquals(true, sadari.columnRangeCheck(6));
+	}
+
+	//public void testSadariTagi() {
+//		fail("Not yet implemented");
+//	}
+
+}
+

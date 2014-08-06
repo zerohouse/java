@@ -1,0 +1,25 @@
+import junit.framework.TestCase;
+
+
+public class SadariTest extends TestCase {
+	
+	Sadari sadari;
+
+	protected void setUp() throws Exception {
+		super.setUp();
+		sadari = new Sadari(6,8);
+		sadari.randomLine(8);
+	}
+
+	protected void tearDown() throws Exception {
+		super.tearDown();
+	}
+	
+	public void testsadariTagi(){
+		assertEquals(1, sadari.sadariTagi(2));
+	}
+
+
+}
+
+

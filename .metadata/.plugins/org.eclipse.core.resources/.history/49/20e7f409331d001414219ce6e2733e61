@@ -1,0 +1,7 @@
+
+public class Point {
+	int column, row;
+	Point(int column, int row){
+		
+	}
+}

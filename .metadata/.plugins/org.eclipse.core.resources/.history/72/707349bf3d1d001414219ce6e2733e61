@@ -1,0 +1,80 @@
+import java.util.Random;
+
+public class Sadari
+
+{
+	Point[][] points;
+	Point movingpoint;
+
+	Sadari(int row, int column) {
+		points = new Point[row + 1][column];
+		for (int i = 0; i < points.length; i++) {
+			for (int j = 0; j < points[0].length; j++) {
+				points[i][j] = new Point(0, 0);
+			}
+		}
+	}
+
+	boolean addLine(int row, int column) {
+
+		column--;
+		row--;
+
+		if (!rowRangeCheck(row)) {
+			return false;
+		}
+
+		if (!columnRangeCheck(column)) {
+			return false;
+		}
+
+		if (!points[row][column].occupy && !points[row][column + 1].occupy) {
+			points[row][column].column = 1;
+			points[row][column + 1].column = -1;
+			points[row][column].occupy();
+			points[row][column + 1].occupy();
+			return true;
+		}
+		return false;
+	}
+
+	boolean rowRangeCheck(int row) {
+		if (-1 < row && row < points.length - 1) {
+			return true;
+		}
+		return false;
+	}
+
+	boolean columnRangeCheck(int column) {
+		if (-1 < column && column < points[0].length - 1) {
+			return true;
+		}
+		return false;
+	}
+
+	void randomLine(int size) {
+		int randomlines = 0, row, column;
+		Random random = new Random();
+
+		while (randomlines < size) {
+			row = random.nextInt(points.length - 1);
+			column = random.nextInt(points[0].length - 1);
+			if (addLine(row, column)) {
+				randomlines++;
+			}
+		}
+	}
+	
+	Point sadariTagi(int start){
+		Point 
+		
+	}
+
+	Point movePoint(Point start) {
+		int row = start.row;
+		int column = start.column;
+		start.row += points[row][column].row;
+		start.column += points[row][column].column;
+		return start;
+	}
+}
